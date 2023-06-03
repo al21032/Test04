@@ -1,0 +1,25 @@
+#buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.button{
+    width:  33.33vw;
+    height: 33.33vw;
+    background-color: #FFFFEF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+p{
+    font-size: 24px;
+    color: black;
+    margin-top: 0;
+}
