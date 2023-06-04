@@ -1,10 +1,13 @@
-var object = document.getElementById("object");
-var leftPos = 0;
-var topPos = 0;
+var object = document.querySelector('.object');
+var originalTop = object.offsetTop;
+var isMoved = false;
 
 object.addEventListener('click', function(){
-    leftPos += 100;
-    topPos += 100;
-    object.style.left = leftPos + "px";
-    object.style.top = topPos + "px";
+    if(isMoved){
+        object.style.top = originalTop + 'px';
+        isMoved = false;
+    } else{
+        object.style.top = (originalTop - 50) + 'px';
+        isMoved = true;
+    }
 });
