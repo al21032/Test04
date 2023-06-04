@@ -1,7 +1,22 @@
+/* 牌を生成するときに使う．background-colorはjsファイルで変更する．*/
 .object{
-    width: 100px;
-    height: 100px;
-    background-color: red;
+    width: 30px;
+    height: 50px;
+    background-color: white;
     position: relative;
     transition: top 0.5s;
+    border: 2px solid black;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* 星を付ける処理．必ず星がついてしまう仕様なので修正の必要あり．*/
+.object::before{
+    content: "★";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: white;
 }
