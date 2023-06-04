@@ -7,7 +7,7 @@ object.addEventListener('click', function(){
     selectTile(this);
 });
 
-// objectCountだけ牌を生成して並べる．
+// objectCountだけ牌を生成してcontainerに並べる．
 var container = document.getElementById('container');
 var objectCount = 12;
 
