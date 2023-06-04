@@ -1,0 +1,7 @@
+#object{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    transition: left 1s, top 1s;
+}
