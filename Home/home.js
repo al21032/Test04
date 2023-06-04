@@ -1,3 +1,3 @@
-document.getElementById("startGameButton").addEventListener("click", function(){
-    window.location.href = "../Game/game.html";
-});
+function buttonClick(){
+    window.location.href = '../Game/game.html';
+}
