@@ -1,8 +1,12 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /* 牌を生成するときに使う．background-colorはjsファイルで変更する．*/
 .object{
     width: 30px;
     height: 50px;
-    background-color: white;
     position: relative;
     transition: top 0.5s;
     border: 2px solid black;
@@ -11,12 +15,23 @@
 }
 
 /* 星を付ける処理．必ず星がついてしまう仕様なので修正の必要あり．*/
-.object::before{
+.object.has-star::before{
     content: "★";
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 24px;
+    color: white;
+}
+
+.object::after{
+    content: attr(dataNumber);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 2px;
+    font-size: 12px;
+    background-color: black;
     color: white;
 }
