@@ -13,6 +13,11 @@ Function     :手牌の更新後に，ポンが可能な牌のフラグをcanCla
 
 function SetClaim(hands, canClaimTiles) {
 
+	// 初期化
+	for (let i = 0; i < 12; ++i) {
+		canClaimTiles[i] = false;
+	}
+
 	// (手牌の数 - 1)だけループする.
 	for (let i = 0; i < 10; ++i) {
 		if (hands[i] >= 1000) break; // 鳴いてある牌の分は判定しない.
