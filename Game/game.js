@@ -241,7 +241,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
 
         ctx.fillRect(x, y, tileWidth, tileHeight);
 
-        if (hand[i] % 10 === 1) {
+        if (trash0[i] % 10 === 1) {
             const radius = 5;
             ctx.beginPath();
             ctx.arc(x + tileWidth / 2, y + tileHeight / 2, radius, 0, 2 * Math.PI);
@@ -279,7 +279,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
 
         ctx.fillRect(x, y, tileWidth, tileHeight);
 
-        if (hand[i] % 10 === 1) {
+        if (trash1[i] % 10 === 1) {
             const radius = 5;
             ctx.beginPath();
             ctx.arc(x + tileWidth / 2, y + tileHeight / 2, radius, 0, 2 * Math.PI);
@@ -317,7 +317,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
 
         ctx.fillRect(x, y, tileWidth, tileHeight);
 
-        if (hand[i] % 10 === 1) {
+        if (trash2[i] % 10 === 1) {
             const radius = 5;
             ctx.beginPath();
             ctx.arc(x + tileWidth / 2, y + tileHeight / 2, radius, 0, 2 * Math.PI);
@@ -355,7 +355,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
 
         ctx.fillRect(x, y, tileWidth, tileHeight);
 
-        if (hand[i] % 10 === 1) {
+        if (trash3[i] % 10 === 1) {
             const radius = 5;
             ctx.beginPath();
             ctx.arc(x + tileWidth / 2, y + tileHeight / 2, radius, 0, 2 * Math.PI);
