@@ -4,16 +4,20 @@
     text-align: center;
 }
 
-#startGameButton{
+.startGameButton{
     width:  684px;
     height: 357px;
     background-color: #FFFFEF;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: black;
     font-size: 72px;
     cursor: pointer;
     text-align: center;
+}
+
+#startDisplay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
