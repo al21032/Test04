@@ -77,6 +77,7 @@ const loop = () => {
     drawHandTiles(hand);
     drawPoints(point);
     drawTrash(trash0, trash1, trash2, trash3);
+    drawHelp();
 
     // ユーザの切り番なら
     if (turn === 0) {
@@ -395,3 +396,4 @@ function clickEvent(event) {
         discardTile = 11;
     }
 }
+
