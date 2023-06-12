@@ -8,7 +8,7 @@ Purpose :まんじゃらシステム
 Function Name:TransitionHelp
 Designer     :小泉遼太
 Date         :2023.6.12
-Function     :
+Function     :ヘルプボタンを押したらhelp.htmlに遷移する
 */
 
 // ヘルプ画面へ遷移するボタンを生成

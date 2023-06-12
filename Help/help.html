@@ -6,13 +6,14 @@
 <link rel="stylesheet" type="text/css" href="help.css">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <script type="text/javascript" src="help.js"></script>
+<script type="text/javascript" src="m5.js"></script>
 <script type="text/javascript" src="m6.js"></script>
 </head>
 <body style="margin: 0;  overflow: hidden">
     <button class="back" onclick="backClick()">戻る</button>
     <div id="startDisplay">
         <div class="help">ヘルプ</div>
-        <button class="combinationList" onclick="combinationListClick()">役を見る</button>
+        <button class="combinationList" onclick="CheckCombination()">役を見る</button>
         <button class="abort" onclick="abortClick()">中止する</button>
     </div>
 <canvas id="help"></canvas>

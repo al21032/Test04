@@ -1,16 +1,3 @@
-/*
-Designer:小泉遼太
-Date    :2023.6.12
-Purpose :まんじゃらシステム
-*/
-
-/*
-Function Name:TransitionHelp
-Designer     :小泉遼太
-Date         :2023.6.12
-Function     :まんじゃらの役一覧を表示する
-*/
-
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
