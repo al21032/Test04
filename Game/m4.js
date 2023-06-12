@@ -10,8 +10,8 @@ Designer     :小泉遼太
 Date         :2023.6.12
 Function     :
 */
-// ヘルプ画面へ遷移するボタンを生成
 
+// ヘルプ画面へ遷移するボタンを生成
 function drawHelp() {
     var buttonX = 100;
     var buttonY = 50;
@@ -52,6 +52,5 @@ function drawHelp() {
 function TransitionHelp() {
     // 新しいウィンドウを開く
     window.open('../Help/help.html', 'ヘルプ', 'width=1000, height=900');
-
     imageObj.src = imageData;
 }
