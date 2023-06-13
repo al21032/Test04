@@ -1,14 +1,18 @@
-// ツモ確定
-function SelfDrawDivision() {
-    if(wallExist){
-        // 牌山からツモする
-        hand.push(deck[deckHead]);
-        deckHead += 1;
+/*
+Designer:高橋匠
+Date    :2023.6.10
+Purpose :まんじゃらシステム
+*/
 
-        // 手牌をソート
-        hand.sort((a, b) => a - b);
+/*
+Function Name:SelfDrawDecision
+Designer     :高橋匠
+Date         :2023.6.10
+Function     :牌山が残っていれば，ユーザがツモをする．
+*/
 
-        // 手牌を再描画する
-        drawHandTiles(hand);
-    }
+function SelfDrawDecision(deck, deckHead, hand) {
+    hand[11] = deck[deckHead] + 9000;
+    deckHead += 1;
+    return hand[11];
 }
