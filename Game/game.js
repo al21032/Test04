@@ -112,7 +112,6 @@ const pauseDrawing = (duration) => {
 
 // 繰り返し処理
 const loop = () => {
-
     if (isPaused) {
         setTimeout(loop, 100);
     }else if (parent === 4) { // 親が1周したか．
@@ -172,7 +171,7 @@ const loop = () => {
                 drawSelf(hand, 11);
 
                 // ツモ上がり確認
-                isSelfDraw = CheckWinonSelfDraw(hand, canWinTile, isSelfDraw);
+                isSelfDraw = checkWinonSelfDraw(hand, canWinTile);
 
                 if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
                     if (isReach === false) BeforeReachDiscard(discardTile, trash0, trashPoint0, hand);
@@ -464,7 +463,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         if (Math.floor(i / 8) >= 2) y += (tileHeight + 5);
         if (Math.floor(i / 8) >= 3) y += (tileHeight + 5);
 
-       ctx.fillStyle = tileColor(trash0, i);
+        ctx.fillStyle = tileColor(trash0, i);
 
         ctx.fillRect(x, y, tileWidth, tileHeight);
 
@@ -572,7 +571,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
 
     // ロン上がり確認
     if (isReach) {
-        isRon = CheckWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
+        isRon = checkWinonRon(trashA, trashPointA, canWinTile);
         if (isRon) {
             deadIn = turn - 1;
             if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
@@ -646,6 +645,6 @@ function clickEvent(event) {
 }
 
 // 描画の再開
-function unPause(evnet) {
+function unPause(event) {
     isPaused = false;
 }
