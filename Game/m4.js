@@ -1,14 +1,14 @@
 /*
-Designer:小泉遼太
-Date    :2023.6.12
-Purpose :まんじゃらシステム
+Designer    :小泉遼太
+Date        :2023.6.12
+Purpose     :まんじゃらシステム
 */
 
 /*
-Function Name:TransitionHelp
-Designer     :小泉遼太
-Date         :2023.6.12
-Function     :ヘルプボタンを押したらhelp.htmlに遷移する
+Function Name   :TransitionHelp
+Designer        :小泉 遼太
+Date            :2023.6.12
+Function        :ヘルプボタンを押したらヘルプ画面に遷移する
 */
 
 // ヘルプ画面へ遷移するボタンを生成
