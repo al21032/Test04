@@ -5,13 +5,13 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:DiscardTileOrder
+Function Name:discardTileOrder
 Designer     :高橋匠
 Date         :2023.6.3
 Function     :切られた牌が，ポンやロンの対象になっているかを調べる.
 */
 
-function DiscardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim) {
+function discardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim) {
 	var color = Math.floor((discardTile % 1000) / 10); // 牌の色を格納する.
 
 	// ポンの対象となっている牌ならば，

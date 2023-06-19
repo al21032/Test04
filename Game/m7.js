@@ -1,6 +1,19 @@
-function ScoreCalculation(hand, winPoint) {
-    var tmpHand = new Array(11);
-    var color = new Array(11);
+/*
+Designer:高橋匠
+Date    :2023.6.10
+Purpose :まんじゃらシステム
+*/
+
+/*
+Function Name:scoreCalculation
+Designer     :高橋匠
+Date         :2023.6.10
+Function     :手牌から上がったときの点数を判定し格納する．
+*/
+
+function scoreCalculation(hand, winPoint) {
+    var tmpHand = new Array(11); // handに影響しないようにコピー
+    var color = new Array(11); // tmpHandの色を格納
 
     for (let i = 0; i < 11; ++i) {
         tmpHand[i] = hand[i];

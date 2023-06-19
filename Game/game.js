@@ -128,7 +128,7 @@ const loop = () => {
         isPaused = true;
     }
     // 牌山が残っているか．
-    SelfDrawRequest(deckHead);
+    selfDrawRequest(deckHead);
     if (isPaused) {
         setTimeout(loop, 100);
     } else {
@@ -160,38 +160,38 @@ const loop = () => {
             init();
             
         } else {
-            SetClaim(hand, canClaimTiles);
+            setClaim(hand, canClaimTiles);
 
             if (turn === 0) { // ユーザの切り番なら
                 // 再描画
                 drawGame();
                 // ツモする
-                hand[11] = SelfDrawDecision(deck, deckHead, hand);
+                hand[11] = selfDrawDecision(deck, deckHead, hand);
 
                 // ツモ牌を描画
                 drawSelf(hand, 11);
 
                 // ツモ上がり確認
-                isSelfDraw = CheckWinonSelfDraw(hand, canWinTile, isSelfDraw);
+                isSelfDraw = checkWinonSelfDraw(hand, canWinTile, isSelfDraw);
 
                 if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-                    if (isReach === false) BeforeReachDiscard(discardTile, trash0, trashPoint0, hand);
-                    else AfterReachDiscard(trash0, trashPoint0, hand)
+                    if (isReach === false) beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+                    else afterReachDiscard(trash0, trashPoint0, hand)
                 } else {
                     discardTile = -1;
                 }
 
-                SetClaim(hand, canClaimTiles);
+                setClaim(hand, canClaimTiles);
     
                 // 打牌した牌が鳴かれるか
-                DiscardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim)
+                discardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim)
 
                 // 打牌した牌が鳴かれないなら，切り番を遷移する．
                 if (discardTile != -1 && !isPossibleClaim) {
                     turn = 1;
-                    winPoint = ScoreCalculation(hand, winPoint);
-                    if (isReach === false) isReach = CheckReach(winPoint, isReach);
-                    if (isReach === true) canWinTile = DoReach(hand, canWinTile);
+                    winPoint = scoreCalculation(hand, winPoint);
+                    if (isReach === false) isReach = checkReach(winPoint, isReach);
+                    if (isReach === true) canWinTile = doReach(hand, canWinTile);
 
                     if (!isSelfDraw) drawGame();
                 }
@@ -572,7 +572,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
 
     // ロン上がり確認
     if (isReach) {
-        isRon = CheckWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
+        isRon = checkWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
         if (isRon) {
             deadIn = turn - 1;
             if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
@@ -580,24 +580,24 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     } else { // ポン処理
         if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
             duringSelect = true;
-            isClaim = CheckClaim(isClaim);
+            isClaim = checkClaim(isClaim);
         }
     }
 
     if (isClaim) {
-        claimCount = DoClaim(trashA, trashPointA, hand, claimCount);
+        claimCount = doClaim(trashA, trashPointA, hand, claimCount);
         drawGame();
         isClaim = false;
         duringClaim = true;
     } else if (duringClaim) {
         if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-            BeforeReachDiscard(discardTile, trash0, trashPoint0, hand);
-            SetClaim(hand, canClaimTiles, duringClaim);
-            winPoint = ScoreCalculation(hand, winPoint);
+            beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+            setClaim(hand, canClaimTiles, duringClaim);
+            winPoint = scoreCalculation(hand, winPoint);
             turn = 1;
             duringClaim = false;
-            if (isReach === false) isReach = CheckReach(winPoint, isReach);
-            if (isReach === true) canWinTile = DoReach(hand, canWinTile);
+            if (isReach === false) isReach = checkReach(winPoint, isReach);
+            if (isReach === true) canWinTile = doReach(hand, canWinTile);
             drawGame();
         }
     } else {

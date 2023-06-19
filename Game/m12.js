@@ -5,14 +5,14 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:DoClaim
+Function Name:doClaim
 Designer     :高橋匠
 Date         :2023.6.5
 Function     :ポンをするなら，牌を3枚見せてポンをする.
               ドラを見せてポンするかの場合分けも行う.
 */
 
-function DoClaim(trash, trashPoint, hand, claimCount) {
+function doClaim(trash, trashPoint, hand, claimCount) {
 
 	var color = Math.floor((trash[trashPoint] % 1000) / 10); // 牌の色を格納する.
 

@@ -5,13 +5,13 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:SetClaim
+Function Name:setClaim
 Designer     :高橋匠
 Date         :2023.6.3
 Function     :手牌の更新後に，ポンが可能な牌のフラグをcanClaimTilesで立てる.
 */
 
-function SetClaim(hand, canClaimTiles) {
+function setClaim(hand, canClaimTiles) {
 
 	// 初期化
 	for (let i = 0; i < 12; ++i) {

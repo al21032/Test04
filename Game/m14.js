@@ -1,6 +1,19 @@
-function DoReach(hand, canWinTile) {
-    var tmpHand = new Array(11);
-    var color = new Array(11);
+/*
+Designer:高橋匠
+Date    :2023.6.10
+Purpose :まんじゃらシステム
+*/
+
+/*
+Function Name:doReach
+Designer     :高橋匠
+Date         :2023.6.10
+Function     :上がり牌をcanWinTileに格納する
+*/
+
+function doReach(hand, canWinTile) {
+    var tmpHand = new Array(11); // handに影響しないようにコピー
+    var color = new Array(11); // tmpHandの色を格納
 
     for (let i = 0; i < 11; ++i) {
         tmpHand[i] = hand[i];
