@@ -36,8 +36,6 @@ function doClaim(trash, trashPoint, hand, claimCount) {
 	var firstColorLabel = -1; // ポン対象の牌の色が，手牌で最初に現れる位置.
 	var lastColorLabel = -1; // ポン対象の牌の色が，手牌で最後に現れる位置.
 
-	var noClaimLabel = -1;
-
 	for (let i = 0; i < 12; ++i) {
 		if (hand[i] >= 1000) break;
 		if (Math.floor((hand[i] % 1000) / 10) > color) {
