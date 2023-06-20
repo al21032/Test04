@@ -5,13 +5,13 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:ClickTrash
+Function Name:clickTrash
 Designer     :深井悠稀
 Date         :2023.6.11
 Function     :クリックした牌を捨てる
 */
 //呼び出すときはcanvas.addEventListener('click', ClickTrash);
-function ClickTrash(event){
+function clickTrash(event){
     {
         var mouseX = event.clientX - canvas.offsetLeft;
         var mouseY = event.clientY - canvas.offsetTop;
@@ -25,8 +25,10 @@ function ClickTrash(event){
         for(let i = 0; i < 11; ++i){
             //ここのif文では選択した物がタイルか判定している.なので余白の部分をクリックしても反応がない
             if (
-                mouseX >= startX + (tileWidth + spacing) * i && mouseX <= startX + tileWidth + (tileWidth + spacing) * i &&
-                mouseY >= startY && mouseY <= startY + tileHeight
+                mouseX >= startX + (tileWidth + spacing) * i 
+                && mouseX <= startX + tileWidth + (tileWidth + spacing) * i 
+                && mouseY >= startY 
+                && mouseY <= startY + tileHeight
             )
             {
                 trash0.push(hand[i]);
@@ -40,4 +42,4 @@ function ClickTrash(event){
             }
         }
     }
-    }
+}
