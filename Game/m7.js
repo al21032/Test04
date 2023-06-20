@@ -1,7 +1,3 @@
-/*
-
-*/
-
 function ScoreCalculation(hand, winPoint) {
     var tmpHand = new Array(11);
     var color = new Array(11);
