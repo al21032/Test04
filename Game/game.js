@@ -1,6 +1,6 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var state = false;
+var state = false;          // 何に使うの？
 var deckHead;
 var parent = -1;
 var turn;
