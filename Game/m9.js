@@ -1,4 +1,5 @@
 /*
+<<<<<<< HEAD
 Designer:小泉遼太
 Date    :2023.6.13
 Purpose :まんじゃらシステム
@@ -16,11 +17,22 @@ function SelfDrawDivision() {
         // 牌山からツモする
         hand.push(deck[deckHead]);
         deckHead += 1;
+=======
+Designer:高橋匠
+Date    :2023.6.10
+Purpose :まんじゃらシステム
+*/
+>>>>>>> ddd78e012f7f7fafc1338540471761d4aa312cb3
 
-        // 手牌をソート
-        hand.sort((a, b) => a - b);
+/*
+Function Name:SelfDrawDecision
+Designer     :高橋匠
+Date         :2023.6.10
+Function     :牌山が残っていれば，ユーザがツモをする．
+*/
 
-        // 手牌を再描画する
-        drawHandTiles(hand);
-    }
+function SelfDrawDecision(deck, deckHead, hand) {
+    hand[11] = deck[deckHead] + 9000;
+    deckHead += 1;
+    return hand[11];
 }
