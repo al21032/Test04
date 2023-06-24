@@ -570,6 +570,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     // 再描画
     drawGame();
 
+    /*
     // ロン上がり確認
     if (isReach) {
         isRon = checkWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
@@ -583,6 +584,23 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
             isClaim = checkClaim(isClaim);
         }
     }
+    */
+
+    if (!additionalDiscardRequest(trashA[trashPointA], canWinTile, canClaimTiles)) {
+        // ロン上がり確認
+        if (isReach) {
+            isRon = checkWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
+            if (isRon) {
+                deadIn = turn - 1;
+                if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
+            }
+        } else { // ポン処理
+            if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
+                duringSelect = true;
+                isClaim = checkClaim(isClaim);
+            }
+        }
+    }
 
     if (isClaim) {
         claimCount = doClaim(trashA, trashPointA, hand, claimCount);
@@ -592,7 +610,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     } else if (duringClaim) {
         if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
             beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
-            setClaim(hand, canClaimTiles, duringClaim);
+            setClaim(hand, canClaimTiles);
             winPoint = scoreCalculation(hand, winPoint);
             turn = 1;
             duringClaim = false;
