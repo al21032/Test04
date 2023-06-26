@@ -40,4 +40,4 @@ function ClickTrash(event){
             }
         }
     }
-    }
+}

@@ -646,6 +646,6 @@ function clickEvent(event) {
 }
 
 // 描画の再開
-function unPause(evnet) {
+function unPause(event) {
     isPaused = false;
 }

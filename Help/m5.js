@@ -11,6 +11,6 @@ Date         :2023.6.12
 Function     :まんじゃらの役一覧を表示する
 */
 
-function CheckCombination() {
+function checkCombination() {
     window.location.href = "../Combination/combination.html";
 }

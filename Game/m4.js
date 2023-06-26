@@ -44,13 +44,8 @@ function drawHelp() {
             (buttonX <= buttonX && point.x <= buttonX + buttonWidth / 2)
             && (buttonY <= buttonY && point.y <= buttonY + buttonHeight / 2)
         if (hit) {
-            TransitionHelp();
+            window.open('../Help/help.html', 'ヘルプ', 'width=1000, height=900');
+            imageObj.src = imageData;
         }
     });
-}
-
-function TransitionHelp() {
-    // 新しいウィンドウを開く
-    window.open('../Help/help.html', 'ヘルプ', 'width=1000, height=900');
-    imageObj.src = imageData;
 }
