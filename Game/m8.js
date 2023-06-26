@@ -11,7 +11,7 @@ Date         :2023.6.10
 Function     :牌山が残っていれば，canSelfDrawをtrueにする．
 */
 
-function SelfDrawRequest(deckHead) {
+function selfDrawRequest(deckHead) {
     if (deckHead < 144) {
         canSelfDraw = true;
     } else {

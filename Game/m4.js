@@ -40,9 +40,8 @@ function drawHelp() {
             y: e.clientY - rect.top
         };
     
-        const hit =
-            (buttonX <= buttonX && point.x <= buttonX + buttonWidth / 2)
-            && (buttonY <= buttonY && point.y <= buttonY + buttonHeight / 2)
+        const hit = (buttonX <= buttonX && point.x <= buttonX + buttonWidth / 2)
+                    && (buttonY <= buttonY && point.y <= buttonY + buttonHeight / 2)
         if (hit) {
             window.open('../Help/help.html', 'ヘルプ', 'width=1000, height=900');
             imageObj.src = imageData;
