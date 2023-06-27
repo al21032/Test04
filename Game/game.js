@@ -37,6 +37,7 @@ let isRon; // ロン上がりならtrue
 let deadIn; // ロンされた席
 let claimCount; // 鳴いた回数
 let canEnd; // 終局を表示できるならtrue
+let timer;
 
 for (let i = 0; i < 4; ++i) {
     point[i] = 3000;
@@ -51,7 +52,6 @@ const init = () => {
     trashPoint1 = 0;
     trashPoint2 = 0;
     trashPoint3 = 0;
-    time = 0;
     canWinTile = -1;
     isPossibleClaim = false;
     isClaim = false;
@@ -99,21 +99,16 @@ const init = () => {
         canClaimTiles[i] = false;
     }
     canWinTile = -1;
-}
 
-// timeout用
-const pauseDrawing = (duration) => {
-    const startTime = Date.now();
-    while(Data.now() - starttime < duration) {
-        ;
-    }
+    clearTimeout(timer);
+
 }
 
 // 繰り返し処理
 const loop = () => {
 
     if (isPaused) {
-        setTimeout(loop, 100);
+        timer = setTimeout(loop, 1);
     }else if (parent === 4) { // 親が1周したか．
         if (canEnd) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -130,7 +125,7 @@ const loop = () => {
     // 牌山が残っているか．
     selfDrawRequest(deckHead);
     if (isPaused) {
-        setTimeout(loop, 100);
+        timer = setTimeout(loop, 1);
     } else {
         if (isSelfDraw) { // ツモ上がりなら
             if (hand[11] % 10 === 1) {
@@ -147,7 +142,6 @@ const loop = () => {
             for (let i = 1; i <= 3; ++i) {
                 point[i] -= winPoint / 3;
             }
-            setTimeout(loop, 1)
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
@@ -159,12 +153,10 @@ const loop = () => {
             drawWin(winPoint);
             point[0] += winPoint;
             point[deadIn] -= winPoint;
-            setTimeout(loop, 1)
             init();
         } else if (!canSelfDraw) { // 牌山が残っていないなら
             drawDrawnGame();
             init();
-            
         } else {
             setClaim(hand, canClaimTiles);
 
@@ -241,8 +233,7 @@ const loop = () => {
         }
         // 画面の任意の位置をクリックして描画を進める．
         isPaused = true;
-
-        setTimeout(loop, 1);
+        loop();
         discardTile = -1;
     }
 }
