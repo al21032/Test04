@@ -128,14 +128,18 @@ const loop = () => {
         isPaused = true;
     }
     // 牌山が残っているか．
-    SelfDrawRequest(deckHead);
+    selfDrawRequest(deckHead);
     if (isPaused) {
         setTimeout(loop, 100);
     } else {
         if (isSelfDraw) { // ツモ上がりなら
-            if (hand[11] % 10 === 1) doraPoint += 15;
+            if (hand[11] % 10 === 1) {
+                doraPoint += 15;
+            }
             for (let i = 0; i < 11; ++i) {
-                if (hand[i] % 10 === 1) doraPoint += 15;
+                if (hand[i] % 10 === 1) {
+                    doraPoint += 15;
+                }
             }
             winPoint += doraPoint;
             drawWin(winPoint);
@@ -147,7 +151,9 @@ const loop = () => {
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
-                if (hand[i] % 10 === 1) doraPoint += 15;
+                if (hand[i] % 10 === 1) {
+                    doraPoint += 15;
+                }
             }
             winPoint += doraPoint;
             drawWin(winPoint);
@@ -160,40 +166,46 @@ const loop = () => {
             init();
             
         } else {
-            SetClaim(hand, canClaimTiles);
+            setClaim(hand, canClaimTiles);
 
             if (turn === 0) { // ユーザの切り番なら
                 // 再描画
                 drawGame();
                 // ツモする
-                hand[11] = SelfDrawDecision(deck, deckHead, hand);
+                hand[11] = selfDrawDecision(deck, deckHead, hand);
 
                 // ツモ牌を描画
                 drawSelf(hand, 11);
 
                 // ツモ上がり確認
-                isSelfDraw = CheckWinonSelfDraw(hand, canWinTile, isSelfDraw);
+                isSelfDraw = checkWinOnSelfDraw(hand, canWinTile, isSelfDraw);
 
-                if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-                    if (isReach === false) BeforeReachDiscard(discardTile, trash0, trashPoint0, hand);
-                    else AfterReachDiscard(trash0, trashPoint0, hand)
+                if (discardTile !== -1 
+                    && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
+                    if (isReach === false) beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+                    else afterReachDiscard(trash0, trashPoint0, hand)
                 } else {
                     discardTile = -1;
                 }
 
-                SetClaim(hand, canClaimTiles);
+                setClaim(hand, canClaimTiles);
     
                 // 打牌した牌が鳴かれるか
-                DiscardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim)
+                discardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim)
 
                 // 打牌した牌が鳴かれないなら，切り番を遷移する．
                 if (discardTile != -1 && !isPossibleClaim) {
                     turn = 1;
-                    winPoint = ScoreCalculation(hand, winPoint);
-                    if (isReach === false) isReach = CheckReach(winPoint, isReach);
-                    if (isReach === true) canWinTile = DoReach(hand, canWinTile);
-
-                    if (!isSelfDraw) drawGame();
+                    winPoint = scoreCalculation(hand, winPoint);
+                    if (isReach === false) {
+                        isReach = checkReach(winPoint, isReach);
+                    }
+                    if (isReach === true) {
+                        canWinTile = doReach(hand, canWinTile);
+                    }
+                    if (!isSelfDraw) {
+                        drawGame();
+                    }
                 }
                 discardTile = -1;
             } else if (turn === 1) {
@@ -207,19 +219,20 @@ const loop = () => {
                 drawGame();
 
             } else if (turn === 2) {
-
-                if (parent === 2 && trashPoint2 === 0) otherTurn(trash1, trashPoint1, trash2, trashPoint2);
-                else trashPoint1 = otherTurn(trash1, trashPoint1, trash2, trashPoint2);
-
+                if (parent === 2 && trashPoint2 === 0) {
+                        otherTurn(trash1, trashPoint1, trash2, trashPoint2);
+                } else {
+                    trashPoint1 = otherTurn(trash1, trashPoint1, trash2, trashPoint2);
+                }
             } else if (turn === 3) {
-
-                if (parent === 3 && trashPoint3 === 0) otherTurn(trash2, trashPoint2, trash3, trashPoint3);
-                else trashPoint2 = otherTurn(trash2, trashPoint2, trash3, trashPoint3);
+                if (parent === 3 && trashPoint3 === 0) {
+                    otherTurn(trash2, trashPoint2, trash3, trashPoint3);
+                } else {
+                    trashPoint2 = otherTurn(trash2, trashPoint2, trash3, trashPoint3);
+                }
 
             } else if (turn == 4) {
-
                 trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
-
             }
         }
         // 画面の任意の位置をクリックして描画を進める．
@@ -284,7 +297,9 @@ function drawEndGame(point) {
 
     var judge = true;
     for (let i = 1; i <= 3; ++i) {
-        if (point[0] < point[i]) judge = false;
+        if (point[0] < point[i]) {
+            judge = false;
+        }
     }
 
     if (judge) {
@@ -441,7 +456,6 @@ function drawSelf(tile, label) {
     const y = startY;
 
     ctx.fillStyle = tileColor(tile, label);
-
     ctx.fillRect(x, y, tileWidth, tileHeight);
 
     drawDora(tile, 10, x, y, tileWidth, tileHeight, label);
@@ -460,9 +474,15 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         let x = startX + (tileWidth + spacing) * (i % 8);
         let y = startY;
 
-        if (Math.floor(i / 8) >= 1) y += (tileHeight + 5);
-        if (Math.floor(i / 8) >= 2) y += (tileHeight + 5);
-        if (Math.floor(i / 8) >= 3) y += (tileHeight + 5);
+        if (Math.floor(i / 8) >= 1) {
+            y += (tileHeight + 5);
+        }
+        if (Math.floor(i / 8) >= 2) {
+            y += (tileHeight + 5);
+        }
+        if (Math.floor(i / 8) >= 3) {
+            y += (tileHeight + 5);
+        }
 
        ctx.fillStyle = tileColor(trash0, i);
 
@@ -477,13 +497,21 @@ function drawTrash(trash0, trash1, trash2, trash3) {
     var tileHeight = 20;
 
     for (let i = 0; i < trash1.length; ++i) {
-        if (trash1[i] === -1) break;
+        if (trash1[i] === -1) {
+            break;
+        }
         let x = startX;
         let y = startY + (tileHeight + spacing) * (i % 8);
 
-        if (Math.floor(i / 8) >= 1) x -= (tileWidth + 5);
-        if (Math.floor(i / 8) >= 2) x -= (tileWidth + 5);
-        if (Math.floor(i / 8) >= 3) x -= (tileWidth + 5);
+        if (Math.floor(i / 8) >= 1) {
+            x -= (tileWidth + 5);
+        }
+        if (Math.floor(i / 8) >= 2) {
+            x -= (tileWidth + 5);
+        }
+        if (Math.floor(i / 8) >= 3) {
+            x -= (tileWidth + 5);
+        }
 
         ctx.fillStyle = tileColor(trash1, i);
 
@@ -502,9 +530,15 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         let x = startX - (tileWidth + spacing) * (i % 8);
         let y = startY;
 
-        if (Math.floor(i / 8) >= 1) y -= (tileHeight + 5);
-        if (Math.floor(i / 8) >= 2) y -= (tileHeight + 5);
-        if (Math.floor(i / 8) >= 3) y -= (tileHeight + 5);
+        if (Math.floor(i / 8) >= 1) {
+            y -= (tileHeight + 5);
+        }
+        if (Math.floor(i / 8) >= 2) {
+            y -= (tileHeight + 5);
+        }
+        if (Math.floor(i / 8) >= 3) {
+            y -= (tileHeight + 5);
+        }
 
         ctx.fillStyle = tileColor(trash2, i);
 
@@ -519,13 +553,21 @@ function drawTrash(trash0, trash1, trash2, trash3) {
     var tileHeight = 20;
 
     for (let i = 0; i < trash3.length; ++i) {
-        if (trash3[i] === -1) break;
+        if (trash3[i] === -1){
+            break;
+        }
         let x = startX;
         let y = startY - (tileHeight + spacing) * (i % 8);
 
-        if (Math.floor(i / 8) >= 1) x += (tileWidth + 5);
-        if (Math.floor(i / 8) >= 2) x += (tileWidth + 5);
-        if (Math.floor(i / 8) >= 3) x += (tileWidth + 5);
+        if (Math.floor(i / 8) >= 1) {
+            x += (tileWidth + 5);
+        }
+        if (Math.floor(i / 8) >= 2) {
+            x += (tileWidth + 5);
+        }
+        if (Math.floor(i / 8) >= 3) {
+            x += (tileWidth + 5);
+        }
 
         ctx.fillStyle = tileColor(trash3, i);
 
@@ -550,18 +592,31 @@ function drawDora(tile, radius, x, y, tileWidth, tileHeight, i) {
 function tileColor(tile, point) {
     var colorString = '';
 
-    if (Math.floor((tile[point] % 1000) / 10) === 0) colorString = 'yellow';
-    else if (Math.floor((tile[point] % 1000) / 10) === 1) colorString = 'lime';
-    else if (Math.floor((tile[point] % 1000) / 10) === 2) colorString = 'green';
-    else if (Math.floor((tile[point] % 1000) / 10) === 3) colorString = 'cyan';
-    else if (Math.floor((tile[point] % 1000) / 10) === 4) colorString = 'blue';
-    else if (Math.floor((tile[point] % 1000) / 10) === 5) colorString = 'purple';
-    else if (Math.floor((tile[point] % 1000) / 10) === 6) colorString = 'red';
-    else if (Math.floor((tile[point] % 1000) / 10) === 7) colorString = 'pink';
-    else if (Math.floor((tile[point] % 1000) / 10) === 8) colorString = 'orange';
-    else if (Math.floor((tile[point] % 1000) / 10) === 9) colorString = 'bisque';
-    else if (Math.floor((tile[point] % 1000) / 10) === 10) colorString = 'brown';
-    else if (Math.floor((tile[point] % 1000) / 10) === 11) colorString = 'black';
+    if (Math.floor((tile[point] % 1000) / 10) === 0) {
+        colorString = 'yellow';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 1) {
+        colorString = 'lime';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 2) {
+        colorString = 'green';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 3) {
+        colorString = 'cyan';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 4) {
+        colorString = 'blue';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 5) {
+        colorString = 'purple';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 6) {
+        colorString = 'red';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 7) {
+        colorString = 'pink';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 8) {
+        colorString = 'orange';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 9) {
+        colorString = 'bisque';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 10) {
+        colorString = 'brown';
+    } else if (Math.floor((tile[point] % 1000) / 10) === 11) {
+        colorString = 'black';
+    }
 
     return colorString;
 }
@@ -572,32 +627,39 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
 
     // ロン上がり確認
     if (isReach) {
-        isRon = CheckWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
+        isRon = checkWinOnRon(trashA, trashPointA, canWinTile, isSelfDraw);
         if (isRon) {
             deadIn = turn - 1;
-            if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
+            if (trashA[trashPointA] % 10 === 1) {
+                doraPoint += 15;
+            }
         }
     } else { // ポン処理
         if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
             duringSelect = true;
-            isClaim = CheckClaim(isClaim);
+            isClaim = checkClaim(isClaim);
         }
     }
 
     if (isClaim) {
-        claimCount = DoClaim(trashA, trashPointA, hand, claimCount);
+        claimCount = doClaim(trashA, trashPointA, hand, claimCount);
         drawGame();
         isClaim = false;
         duringClaim = true;
     } else if (duringClaim) {
-        if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-            BeforeReachDiscard(discardTile, trash0, trashPoint0, hand);
-            SetClaim(hand, canClaimTiles, duringClaim);
-            winPoint = ScoreCalculation(hand, winPoint);
+        if (discardTile !== -1 
+            && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
+            beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+            setClaim(hand, canClaimTiles, duringClaim);
+            winPoint = scoreCalculation(hand, winPoint);
             turn = 1;
             duringClaim = false;
-            if (isReach === false) isReach = CheckReach(winPoint, isReach);
-            if (isReach === true) canWinTile = DoReach(hand, canWinTile);
+            if (isReach === false) {
+                isReach = checkReach(winPoint, isReach);
+            }
+            if (isReach === true) {
+                canWinTile = doReach(hand, canWinTile);
+            }
             drawGame();
         }
     } else {
@@ -606,13 +668,14 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
             trashB[trashPointB] = deck[deckHead];
             deckHead += 1;
             turn += 1
-            if (!isRon) drawGame();
+            if (!isRon) {
+                drawGame();
+            }
         } else {
             turn = 0;
         }
 
     }
-
     return trashPointA;
 }
 
@@ -631,21 +694,24 @@ function clickEvent(event) {
     const spacing = 10;
 
     for (let i = 0; i < 11; ++i) {
-        if (
-            mouseX >= startX + (tileWidth + spacing) * i && mouseX <= startX + tileWidth + (tileWidth + spacing) * i &&
-            mouseY >= startY && mouseY <= startY + tileHeight
-        ){
+        if (mouseX >= startX + (tileWidth + spacing) * i 
+            && mouseX <= startX + tileWidth + (tileWidth + spacing) * i 
+            && mouseY >= startY 
+            && mouseY <= startY + tileHeight) {
             discardTile = i;
             break;
         }
     }
 
-    if (mouseX >= 650 && mouseX <= 690 && mouseY >= 500 && mouseY <= 560) {
+    if (mouseX >= 650 
+        && mouseX <= 690 
+        && mouseY >= 500 
+        && mouseY <= 560) {
         discardTile = 11;
     }
 }
 
 // 描画の再開
-function unPause(evnet) {
+function unPause(event) {
     isPaused = false;
 }
