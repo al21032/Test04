@@ -68,7 +68,7 @@ function doReach(hand, canWinTile) {
             five += 1;
         }
     }
-    if (color[5] !== color[6] && color[6] !== color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) five += 1;
+    if (color[5] !== color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) five += 1;
 
     // 6色セット確認
     if (color[0] === color[1] && color[1] === color[2] && color[2] === color[3] && color[3] === color[4] && color[4] === color[5] && color[5] !== color[6]) six += 1;
@@ -77,7 +77,7 @@ function doReach(hand, canWinTile) {
             six += 1;
         }
     }
-    if (color[4] !== color[5] && color[5] !== color[6] && color[6] !== color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) six += 1;
+    if (color[4] !== color[5] && color[5] === color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) six += 1;
 
     // 7色セット確認
     if (color[0] === color[1] && color[1] === color[2] && color[2] === color[3] && color[3] === color[4] && color[4] === color[5] && color[5] === color[6] && color[6] !== color[7]) seven += 1;
@@ -86,7 +86,7 @@ function doReach(hand, canWinTile) {
             seven += 1;
         }
     }
-    if (color[3] !== color[4] && color[4] === color[5] && color[5] !== color[6] && color[6] !== color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) seven += 1;
+    if (color[3] !== color[4] && color[4] === color[5] && color[5] === color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) seven += 1;
 
     // 8色セット確認
     if (color[0] === color[1] && color[1] === color[2] && color[2] === color[3] && color[3] === color[4] && color[4] === color[5] && color[5] === color[6] && color[6] === color[7] && color[7] !== color[8]) eight += 1;
@@ -95,7 +95,7 @@ function doReach(hand, canWinTile) {
             eight += 1;
         }
     }
-    if (color[2] !== color[3] && color[3] === color[4] && color[4] === color[5] && color[5] !== color[6] && color[6] !== color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) eight += 1;
+    if (color[2] !== color[3] && color[3] === color[4] && color[4] === color[5] && color[5] === color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) eight += 1;
 
     // 9色セット確認
     if (color[0] === color[1] && color[1] === color[2] && color[2] === color[3] && color[3] === color[4] && color[4] === color[5] && color[5] === color[6] && color[6] === color[7] && color[7] === color[8] && color[8] !== color[9]) nine += 1;
@@ -104,7 +104,7 @@ function doReach(hand, canWinTile) {
             nine += 1;
         }
     }
-    if (color[1] !== color[2] && color[2] === color[3] && color[3] === color[4] && color[4] === color[5] && color[5] !== color[6] && color[6] !== color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) nine += 1;
+    if (color[1] !== color[2] && color[2] === color[3] && color[3] === color[4] && color[4] === color[5] && color[5] === color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) nine += 1;
 
     // 1-1-1-1-1-1-1-1-1-1-1-1色セット確認
     var check = true;
@@ -184,7 +184,7 @@ function doReach(hand, canWinTile) {
                 canWinTile = color[i];
             }
         }
-        if (color[2] !== color[3] && color[3] === color[4] && color[4] === color[5] && color[5] !== color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) canWinTile = color[10];
+        if (color[2] !== color[3] && color[3] === color[4] && color[4] === color[5] && color[5] === color[6] && color[6] === color[7] && color[7] === color[8] && color[8] === color[9] && color[9] === color[10]) canWinTile = color[10];
     } else if (nine === 1 && two === 1) {
         if (color[0] === color[1] && color[1] !== color[2]) canWinTile = color[0];
         for (let i = 1; i < 9; ++i) {
