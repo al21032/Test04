@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let state = false;          // 何に使うの？
 let deckHead;
 let parent = -1;
 let turn;
+=======
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var state = false;
+var deckHead;
+var parent = -1;
+var turn;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
 canvas.width = 850;
 canvas.height = 600;
@@ -11,6 +20,7 @@ canvas.height = 600;
 const centerX = canvas.width / 2;
 const centerY = canvas.height / 2;
 
+<<<<<<< HEAD
 let hand = new Array(12); // 手牌
 let deck = new Array(144); // 牌山
 let trash0 = new Array(30); // 捨牌1~4
@@ -38,6 +48,35 @@ let isRon; // ロン上がりならtrue
 let deadIn; // ロンされた席
 let claimCount; // 鳴いた回数
 let canEnd; // 終局を表示できるならtrue
+=======
+var hand = new Array(12); // 手牌
+var deck = new Array(144); // 牌山
+var trash0 = new Array(30); // 捨牌1~4
+var trash1 = new Array(30);
+var trash2 = new Array(30);
+var trash3 = new Array(30);
+var trashPoint0; // 捨牌の位置
+var trashPoint1;
+var trashPoint2;
+var trashPoint3;
+var point = new Array(4); // 点数
+var discardTile = -1; // 切り牌
+var canClaimTiles = new Array(25); // ポンできる牌
+var canWinTile; // 上がれる牌
+var isPossibleClaim ; // ポンできるならtrue
+var isClaim; // ポンするならtrue
+var duringClaim; // ポン処理中ならtrue
+var winPoint; // 役の分の点数
+var doraPoint; // ドラの分の点数
+var isReach; // リーチしているならtrue
+var canSelfDraw; // 牌山が残っているならtrue
+var isPaused; // 描画を停止中ならtrue
+var isSelfDraw; // ツモ上がりならtrue
+var isRon; // ロン上がりならtrue
+var deadIn; // ロンされた席
+var claimCount; // 鳴いた回数
+var canEnd; // 終局を表示できるならtrue
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
 for (let i = 0; i < 4; ++i) {
     point[i] = 3000;
@@ -123,7 +162,10 @@ const loop = () => {
                 point[i] = 3000;
             }
             parent = 0;
+<<<<<<< HEAD
             canEnd = false;
+=======
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         }
         canEnd = true;
         isPaused = true;
@@ -134,6 +176,7 @@ const loop = () => {
         setTimeout(loop, 100);
     } else {
         if (isSelfDraw) { // ツモ上がりなら
+<<<<<<< HEAD
             if (hand[11] % 10 === 1) {
                 doraPoint += 15;
             }
@@ -141,6 +184,11 @@ const loop = () => {
                 if (hand[i] % 10 === 1) {
                     doraPoint += 15;
                 }
+=======
+            if (hand[11] % 10 === 1) doraPoint += 15;
+            for (let i = 0; i < 11; ++i) {
+                if (hand[i] % 10 === 1) doraPoint += 15;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
             }
             winPoint += doraPoint;
             drawWin(winPoint);
@@ -152,9 +200,13 @@ const loop = () => {
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
+<<<<<<< HEAD
                 if (hand[i] % 10 === 1) {
                     doraPoint += 15;
                 }
+=======
+                if (hand[i] % 10 === 1) doraPoint += 15;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
             }
             winPoint += doraPoint;
             drawWin(winPoint);
@@ -179,10 +231,16 @@ const loop = () => {
                 drawSelf(hand, 11);
 
                 // ツモ上がり確認
+<<<<<<< HEAD
                 isSelfDraw = checkWinOnSelfDraw(hand, canWinTile, isSelfDraw);
 
                 if (discardTile !== -1 
                     && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
+=======
+                isSelfDraw = checkWinonSelfDraw(hand, canWinTile, isSelfDraw);
+
+                if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
                     if (isReach === false) beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
                     else afterReachDiscard(trash0, trashPoint0, hand)
                 } else {
@@ -198,6 +256,7 @@ const loop = () => {
                 if (discardTile != -1 && !isPossibleClaim) {
                     turn = 1;
                     winPoint = scoreCalculation(hand, winPoint);
+<<<<<<< HEAD
                     if (isReach === false) {
                         isReach = checkReach(winPoint, isReach);
                     }
@@ -207,6 +266,12 @@ const loop = () => {
                     if (!isSelfDraw) {
                         drawGame();
                     }
+=======
+                    if (isReach === false) isReach = checkReach(winPoint, isReach);
+                    if (isReach === true) canWinTile = doReach(hand, canWinTile);
+
+                    if (!isSelfDraw) drawGame();
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
                 }
                 discardTile = -1;
             } else if (turn === 1) {
@@ -220,6 +285,7 @@ const loop = () => {
                 drawGame();
 
             } else if (turn === 2) {
+<<<<<<< HEAD
                 if (parent === 2 && trashPoint2 === 0) {
                         otherTurn(trash1, trashPoint1, trash2, trashPoint2);
                 } else {
@@ -234,6 +300,21 @@ const loop = () => {
 
             } else if (turn == 4) {
                 trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+=======
+
+                if (parent === 2 && trashPoint2 === 0) otherTurn(trash1, trashPoint1, trash2, trashPoint2);
+                else trashPoint1 = otherTurn(trash1, trashPoint1, trash2, trashPoint2);
+
+            } else if (turn === 3) {
+
+                if (parent === 3 && trashPoint3 === 0) otherTurn(trash2, trashPoint2, trash3, trashPoint3);
+                else trashPoint2 = otherTurn(trash2, trashPoint2, trash3, trashPoint3);
+
+            } else if (turn == 4) {
+
+                trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
             }
         }
         // 画面の任意の位置をクリックして描画を進める．
@@ -267,10 +348,17 @@ function drawGame() {
 
 function drawReach(isReach) {
     if (isReach) {
+<<<<<<< HEAD
         const x = 405;
         const y = 310;
         const width = 40;
         const height = 6;
+=======
+        var x = 405;
+        var y = 310;
+        var width = 40;
+        var height = 6;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
         ctx.fillStyle = 'white';
         ctx.fillRect(x, y, width, height);
@@ -288,14 +376,20 @@ function drawEndGame(point) {
     ctx.fillStyle = 'white';
     ctx.fillRect(365, 225, 120, 60);
 
+<<<<<<< HEAD
     let textX = centerX;
     let textY = centerY - 30;
+=======
+    var textX = centerX;
+    var textY = centerY - 30;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     ctx.font = '50px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
 
     ctx.fillText('終局', textX, textY);
 
+<<<<<<< HEAD
     ctx.fillStyle = 'white';
     ctx.fillRect(315, 375, 220, 60);
 
@@ -312,14 +406,24 @@ function drawEndGame(point) {
         if (point[0] < point[i]) {
             judge = false;
         }
+=======
+    var judge = true;
+    for (let i = 1; i <= 3; ++i) {
+        if (point[0] < point[i]) judge = false;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     }
 
     if (judge) {
         ctx.fillStyle = 'white';
         ctx.fillRect(315, 325, 220, 60);
 
+<<<<<<< HEAD
         textX = centerX;
         textY = centerY + 70;
+=======
+        var textX = centerX;
+        var textY = centerY + 70;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         ctx.font = '50px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'black';
@@ -329,8 +433,13 @@ function drawEndGame(point) {
         ctx.fillStyle = 'white';
         ctx.fillRect(315, 325, 220, 60);
 
+<<<<<<< HEAD
         textX = centerX;
         textY = centerY + 70;
+=======
+        var textX = centerX;
+        var textY = centerY + 70;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         ctx.font = '50px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'black';
@@ -338,6 +447,19 @@ function drawEndGame(point) {
         ctx.fillText('YOU LOSE', textX, textY);
     }
 
+<<<<<<< HEAD
+=======
+    ctx.fillStyle = 'white';
+    ctx.fillRect(315, 375, 220, 60);
+
+    var textX = centerX;
+    var textY = centerY + 120;
+    ctx.font = '30px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'black';
+
+    ctx.fillText(point[0] + 'points', textX, textY);
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 }
 
 // 流れたときの描画
@@ -345,8 +467,13 @@ function drawDrawnGame() {
     ctx.fillStyle = 'white';
     ctx.fillRect(365, 225, 120, 60);
 
+<<<<<<< HEAD
     const textX = centerX;
     const textY = centerY - 30;
+=======
+    var textX = centerX;
+    var textY = centerY - 30;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     ctx.font = '50px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
@@ -359,8 +486,13 @@ function drawWin(winPoint) {
     ctx.fillStyle = 'white';
     ctx.fillRect(280, 225, 300, 60);
 
+<<<<<<< HEAD
     const textX = centerX;
     const textY = centerY - 30;
+=======
+    var textX = centerX;
+    var textY = centerY - 30;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     ctx.font = '50px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
@@ -372,11 +504,19 @@ function drawWin(winPoint) {
 // 手牌を描画
 function drawHandTiles(hand) {
     // 見せてない牌の描画
+<<<<<<< HEAD
     let startX = 70;
     let startY = 500;
     let tileWidth = 40;
     let tileHeight = 60;
     let spacing = 10;
+=======
+    var startX = 70;
+    var startY = 500;
+    var tileWidth = 40;
+    var tileHeight = 60;
+    var spacing = 10;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
     for (let i = 0; i < 11; ++i) {
         const x = startX + (tileWidth + spacing) * i;
@@ -398,10 +538,17 @@ function drawHandTiles(hand) {
     tileHeight = 45;
     spacing = 5;
 
+<<<<<<< HEAD
     let y = startY;
 
     for (let i = 0; i < 3; ++i) {
         let x = startX;
+=======
+    var y = startY;
+
+    for (let i = 0; i < 3; ++i) {
+        var x = startX;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         for (let j = 0; j <= 11; ++j) {
 
             ctx.fillStyle = tileColor(hand, j);
@@ -426,14 +573,20 @@ function drawHandTiles(hand) {
 
 // 点数を描画
 function drawPoints(point) {
+<<<<<<< HEAD
     const textX0 = centerX;
     const textY0 = centerY;
+=======
+    var textX0 = centerX;
+    var textY0 = centerY;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
 
     ctx.fillText(point[0], textX0, textY0);
 
+<<<<<<< HEAD
     const textX1 = centerX - 50;
     const textY1 = centerY - 50;
     ctx.fillText(point[1], textX1, textY1);
@@ -444,20 +597,43 @@ function drawPoints(point) {
 
     const textX3 = centerX + 50;
     const textY3 = centerY - 50;
+=======
+    var textX1 = centerX - 50;
+    var textY1 = centerY - 50;
+    ctx.fillText(point[1], textX1, textY1);
+
+    var textX2 = centerX;
+    var textY2 = centerY - 100;
+    ctx.fillText(point[2], textX2, textY2);
+
+    var textX3 = centerX + 50;
+    var textY3 = centerY - 50;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     ctx.fillText(point[3], textX3, textY3);
 }
 
 // ツモ牌を描画
 function drawSelf(tile, label) {
+<<<<<<< HEAD
     const startX = 660;
     const startY = 500;
     const tileWidth = 40;
     const tileHeight = 60;
+=======
+    var startX = 660;
+    var startY = 500;
+    var tileWidth = 40;
+    var tileHeight = 60;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
     const x = startX;
     const y = startY;
 
     ctx.fillStyle = tileColor(tile, label);
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     ctx.fillRect(x, y, tileWidth, tileHeight);
 
     drawDora(tile, 10, x, y, tileWidth, tileHeight, label);
@@ -465,10 +641,17 @@ function drawSelf(tile, label) {
 
 // 捨牌を描画
 function drawTrash(trash0, trash1, trash2, trash3) {
+<<<<<<< HEAD
     let startX = centerX - 100;
     let startY = centerY + 30;
     let tileWidth = 20;
     let tileHeight = 30;
+=======
+    var startX = centerX - 100;
+    var startY = centerY + 30;
+    var tileWidth = 20;
+    var tileHeight = 30;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     const spacing = 5;
 
     for (let i = 0; i < trash0.length; ++i) {
@@ -476,6 +659,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         let x = startX + (tileWidth + spacing) * (i % 8);
         let y = startY;
 
+<<<<<<< HEAD
         if (Math.floor(i / 8) >= 1) {
             y += (tileHeight + 5);
         }
@@ -485,6 +669,11 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         if (Math.floor(i / 8) >= 3) {
             y += (tileHeight + 5);
         }
+=======
+        if (Math.floor(i / 8) >= 1) y += (tileHeight + 5);
+        if (Math.floor(i / 8) >= 2) y += (tileHeight + 5);
+        if (Math.floor(i / 8) >= 3) y += (tileHeight + 5);
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
        ctx.fillStyle = tileColor(trash0, i);
 
@@ -494,6 +683,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
     }
 
     startX = centerX - 160;
+<<<<<<< HEAD
     startY = centerY - 150;
     tileWidth = 30;
     tileHeight = 20;
@@ -514,6 +704,20 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         if (Math.floor(i / 8) >= 3) {
             x -= (tileWidth + 5);
         }
+=======
+    var startY = centerY - 150;
+    var tileWidth = 30;
+    var tileHeight = 20;
+
+    for (let i = 0; i < trash1.length; ++i) {
+        if (trash1[i] === -1) break;
+        let x = startX;
+        let y = startY + (tileHeight + spacing) * (i % 8);
+
+        if (Math.floor(i / 8) >= 1) x -= (tileWidth + 5);
+        if (Math.floor(i / 8) >= 2) x -= (tileWidth + 5);
+        if (Math.floor(i / 8) >= 3) x -= (tileWidth + 5);
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
         ctx.fillStyle = tileColor(trash1, i);
 
@@ -522,16 +726,24 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         drawDora(trash1, 5, x, y, tileWidth, tileHeight, i);
     }
 
+<<<<<<< HEAD
     startX = centerX + 80;
     startY = centerY - 170;
     tileWidth = 20;
     tileHeight = 30;
+=======
+    var startX = centerX + 80;
+    var startY = centerY - 170;
+    var tileWidth = 20;
+    var tileHeight = 30;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
     for (let i = 0; i < trash2.length; ++i) {
         if (trash2[i] === -1) break;
         let x = startX - (tileWidth + spacing) * (i % 8);
         let y = startY;
 
+<<<<<<< HEAD
         if (Math.floor(i / 8) >= 1) {
             y -= (tileHeight + 5);
         }
@@ -541,6 +753,11 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         if (Math.floor(i / 8) >= 3) {
             y -= (tileHeight + 5);
         }
+=======
+        if (Math.floor(i / 8) >= 1) y -= (tileHeight + 5);
+        if (Math.floor(i / 8) >= 2) y -= (tileHeight + 5);
+        if (Math.floor(i / 8) >= 3) y -= (tileHeight + 5);
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
         ctx.fillStyle = tileColor(trash2, i);
 
@@ -550,6 +767,7 @@ function drawTrash(trash0, trash1, trash2, trash3) {
     }
 
     startX = centerX + 120;
+<<<<<<< HEAD
     startY = centerY + 30;
     tileWidth = 30;
     tileHeight = 20;
@@ -570,6 +788,20 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         if (Math.floor(i / 8) >= 3) {
             x += (tileWidth + 5);
         }
+=======
+    var startY = centerY + 30;
+    var tileWidth = 30;
+    var tileHeight = 20;
+
+    for (let i = 0; i < trash3.length; ++i) {
+        if (trash3[i] === -1) break;
+        let x = startX;
+        let y = startY - (tileHeight + spacing) * (i % 8);
+
+        if (Math.floor(i / 8) >= 1) x += (tileWidth + 5);
+        if (Math.floor(i / 8) >= 2) x += (tileWidth + 5);
+        if (Math.floor(i / 8) >= 3) x += (tileWidth + 5);
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
         ctx.fillStyle = tileColor(trash3, i);
 
@@ -592,6 +824,7 @@ function drawDora(tile, radius, x, y, tileWidth, tileHeight, i) {
 
 // 牌の色の抽出
 function tileColor(tile, point) {
+<<<<<<< HEAD
     let colorString = '';
 
     if (Math.floor((tile[point] % 1000) / 10) === 0) {
@@ -619,6 +852,22 @@ function tileColor(tile, point) {
     } else if (Math.floor((tile[point] % 1000) / 10) === 11) {
         colorString = 'black';
     }
+=======
+    var colorString = '';
+
+    if (Math.floor((tile[point] % 1000) / 10) === 0) colorString = 'yellow';
+    else if (Math.floor((tile[point] % 1000) / 10) === 1) colorString = 'lime';
+    else if (Math.floor((tile[point] % 1000) / 10) === 2) colorString = 'green';
+    else if (Math.floor((tile[point] % 1000) / 10) === 3) colorString = 'cyan';
+    else if (Math.floor((tile[point] % 1000) / 10) === 4) colorString = 'blue';
+    else if (Math.floor((tile[point] % 1000) / 10) === 5) colorString = 'purple';
+    else if (Math.floor((tile[point] % 1000) / 10) === 6) colorString = 'red';
+    else if (Math.floor((tile[point] % 1000) / 10) === 7) colorString = 'pink';
+    else if (Math.floor((tile[point] % 1000) / 10) === 8) colorString = 'orange';
+    else if (Math.floor((tile[point] % 1000) / 10) === 9) colorString = 'bisque';
+    else if (Math.floor((tile[point] % 1000) / 10) === 10) colorString = 'brown';
+    else if (Math.floor((tile[point] % 1000) / 10) === 11) colorString = 'black';
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
     return colorString;
 }
@@ -627,6 +876,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     // 再描画
     drawGame();
 
+<<<<<<< HEAD
     // ロン上がり確認
     if (isReach) {
         isRon = checkWinOnRon(trashA, trashPointA, canWinTile, isSelfDraw);
@@ -635,6 +885,15 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
             if (trashA[trashPointA] % 10 === 1) {
                 doraPoint += 15;
             }
+=======
+    /*
+    // ロン上がり確認
+    if (isReach) {
+        isRon = checkWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
+        if (isRon) {
+            deadIn = turn - 1;
+            if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         }
     } else { // ポン処理
         if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
@@ -642,6 +901,26 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
             isClaim = checkClaim(isClaim);
         }
     }
+<<<<<<< HEAD
+=======
+    */
+
+    if (!additionalDiscardRequest(trashA[trashPointA], canWinTile, canClaimTiles)) {
+        // ロン上がり確認
+        if (isReach) {
+            isRon = checkWinonRon(trashA, trashPointA, canWinTile, isSelfDraw);
+            if (isRon) {
+                deadIn = turn - 1;
+                if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
+            }
+        } else { // ポン処理
+            if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
+                duringSelect = true;
+                isClaim = checkClaim(isClaim);
+            }
+        }
+    }
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 
     if (isClaim) {
         claimCount = doClaim(trashA, trashPointA, hand, claimCount);
@@ -649,6 +928,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
         isClaim = false;
         duringClaim = true;
     } else if (duringClaim) {
+<<<<<<< HEAD
         if (discardTile !== -1 
             && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
             beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
@@ -662,6 +942,16 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
             if (isReach === true) {
                 canWinTile = doReach(hand, canWinTile);
             }
+=======
+        if (discardTile !== -1 && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
+            beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+            setClaim(hand, canClaimTiles);
+            winPoint = scoreCalculation(hand, winPoint);
+            turn = 1;
+            duringClaim = false;
+            if (isReach === false) isReach = checkReach(winPoint, isReach);
+            if (isReach === true) canWinTile = doReach(hand, canWinTile);
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
             drawGame();
         }
     } else {
@@ -670,14 +960,22 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
             trashB[trashPointB] = deck[deckHead];
             deckHead += 1;
             turn += 1
+<<<<<<< HEAD
             if (!isRon) {
                 drawGame();
             }
+=======
+            if (!isRon) drawGame();
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         } else {
             turn = 0;
         }
 
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     return trashPointA;
 }
 
@@ -696,24 +994,39 @@ function clickEvent(event) {
     const spacing = 10;
 
     for (let i = 0; i < 11; ++i) {
+<<<<<<< HEAD
         if (mouseX >= startX + (tileWidth + spacing) * i 
             && mouseX <= startX + tileWidth + (tileWidth + spacing) * i 
             && mouseY >= startY 
             && mouseY <= startY + tileHeight) {
+=======
+        if (
+            mouseX >= startX + (tileWidth + spacing) * i && mouseX <= startX + tileWidth + (tileWidth + spacing) * i &&
+            mouseY >= startY && mouseY <= startY + tileHeight
+        ){
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
             discardTile = i;
             break;
         }
     }
 
+<<<<<<< HEAD
     if (mouseX >= 650 
         && mouseX <= 690 
         && mouseY >= 500 
         && mouseY <= 560) {
+=======
+    if (mouseX >= 650 && mouseX <= 690 && mouseY >= 500 && mouseY <= 560) {
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
         discardTile = 11;
     }
 }
 
 // 描画の再開
+<<<<<<< HEAD
 function unPause(event) {
+=======
+function unPause(evnet) {
+>>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
     isPaused = false;
 }
