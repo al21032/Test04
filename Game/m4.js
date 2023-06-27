@@ -1,5 +1,4 @@
 /*
-<<<<<<< HEAD
 Designer    :小泉遼太
 Date        :2023.6.12
 Purpose     :まんじゃらシステム
@@ -10,18 +9,6 @@ Function Name   :TransitionHelp
 Designer        :小泉 遼太
 Date            :2023.6.12
 Function        :ヘルプボタンを押したらヘルプ画面に遷移する
-=======
-Designer:小泉遼太
-Date    :2023.6.12
-Purpose :まんじゃらシステム
-*/
-
-/*
-Function Name:TransitionHelp
-Designer     :小泉遼太
-Date         :2023.6.12
-Function     :ヘルプボタンを押したらhelp.htmlに遷移する
->>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
 */
 
 // ヘルプ画面へ遷移するボタンを生成
@@ -53,7 +40,6 @@ function drawHelp() {
             y: e.clientY - rect.top
         };
     
-<<<<<<< HEAD
         const hit = (buttonX <= buttonX && point.x <= buttonX + buttonWidth / 2)
                     && (buttonY <= buttonY && point.y <= buttonY + buttonHeight / 2)
         if (hit) {
@@ -62,19 +48,3 @@ function drawHelp() {
         }
     });
 }
-=======
-        const hit =
-            (buttonX <= buttonX && point.x <= buttonX + buttonWidth / 2)
-            && (buttonY <= buttonY && point.y <= buttonY + buttonHeight / 2)
-        if (hit) {
-            TransitionHelp();
-        }
-    });
-}
-
-function TransitionHelp() {
-    // 新しいウィンドウを開く
-    window.open('../Help/help.html', 'ヘルプ', 'width=1000, height=900');
-    imageObj.src = imageData;
-}
->>>>>>> a0d6b38a9a7a468c19ca9fe1618491a7b075add1
