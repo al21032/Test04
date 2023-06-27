@@ -5,7 +5,7 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:doClaim
+Function Name:DoClaim
 Designer     :高橋匠
 Date         :2023.6.5
 Function     :ポンをするなら，牌を3枚見せてポンをする.
@@ -14,27 +14,30 @@ Function     :ポンをするなら，牌を3枚見せてポンをする.
 
 function doClaim(trash, trashPoint, hand, claimCount) {
 
-	var color = Math.floor((trash[trashPoint] % 1000) / 10); // 牌の色を格納する.
-
-	var tmpTile = trash[trashPoint];
+	const color = Math.floor((trash[trashPoint] % 1000) / 10); // 牌の色を格納する.
+	const tmpTile = trash[trashPoint];
 
 	// 配列に挿入して，昇順にソートする.
 	hand[11] = trash[trashPoint];
-	var isDora = false;
-	if (hand[11] % 10 === 1) isDora = true;
+	let isDora = false;
+	if (hand[11] % 10 === 1) {
+		isDora = true;
+	}
 	hand.sort((a, b) => a - b);
 
-	var lastHand = -1;
+	let lastHand = -1;
 	for (let i = 0; i < 12; ++i) {
-		if (hand[i] >= 1000) break;
+		if (hand[i] >= 1000) {
+			break;
+		}
 		lastHand = i;
 	}
 
 	trash[trashPoint] = -1;
 
-	var showBonusTiles = false; // ドラを見せてポンするかのフラグ.
-	var firstColorLabel = -1; // ポン対象の牌の色が，手牌で最初に現れる位置.
-	var lastColorLabel = -1; // ポン対象の牌の色が，手牌で最後に現れる位置.
+	let showBonusTiles = false; // ドラを見せてポンするかのフラグ.
+	let firstColorLabel = -1; // ポン対象の牌の色が，手牌で最初に現れる位置.
+	let lastColorLabel = -1; // ポン対象の牌の色が，手牌で最後に現れる位置.
 
 	for (let i = 0; i < 12; ++i) {
 		if (hand[i] >= 1000) break;
@@ -63,8 +66,9 @@ function doClaim(trash, trashPoint, hand, claimCount) {
 				}
 			}
 
-			if (isDora) showBonusTiles = true;
-
+			if (isDora) {
+				showBonusTiles = true;
+			}
 
 			// 3枚見せる
 			if (showBonusTiles || tmpTile % 10 === 1) { // ドラを見せるなら後ろから見せる.
@@ -83,8 +87,11 @@ function doClaim(trash, trashPoint, hand, claimCount) {
 	// ポン対象の牌の色が，手牌で最初に現れる位置から3つ先まで繋がっていたら
 	if (lastColorLabel - firstColorLabel > 2 && lastHand > 3) {
 		if (confirm('4枚見せてポンする?')) {
-			if (showBonusTiles) hand[lastColorLabel - 3] += ((3 - claimCount) * 1000);
-			else hand[firstColorLabel + 3] += ((3 - claimCount) * 1000);
+			if (showBonusTiles) {
+				hand[lastColorLabel - 3] += ((3 - claimCount) * 1000);
+			} else {
+				hand[firstColorLabel + 3] += ((3 - claimCount) * 1000);
+			}
 		}
 	}
 

@@ -5,7 +5,7 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:afterReachDiscard
+Function Name:AfterReachDiscard
 Designer     :高橋匠
 Date         :2023.6.10
 Function     :ユーザの切り番で，ツモ牌のみを打牌する．

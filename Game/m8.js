@@ -5,7 +5,7 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:selfDrawRequest
+Function Name:SelfDrawRequest
 Designer     :高橋匠
 Date         :2023.6.10
 Function     :牌山が残っていれば，canSelfDrawをtrueにする．
