@@ -12,7 +12,7 @@ Function     :切られた牌が，ポンやロンの対象になっているか
 */
 
 function discardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim) {
-	var color = Math.floor((discardTile % 1000) / 10); // 牌の色を格納する.
+	const color = Math.floor((discardTile % 1000) / 10); // 牌の色を格納する.
 
 	// ポンの対象となっている牌ならば，
 	if (canClaimTiles[color]) {

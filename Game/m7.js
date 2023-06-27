@@ -1,6 +1,6 @@
 function scoreCalculation(hand, winPoint) {
-    var tmpHand = new Array(11);
-    var color = new Array(11);
+    const tmpHand = new Array(11);
+    const color = new Array(11);
 
     for (let i = 0; i < 11; ++i) {
         tmpHand[i] = hand[i];
@@ -14,14 +14,14 @@ function scoreCalculation(hand, winPoint) {
 
     color.sort((a, b) => a - b);
 
-    var two = 0;
-    var three = 0;
-    var four = 0;
-    var five = 0;
-    var six = 0;
-    var seven = 0;
-    var eight = 0;
-    var nine = 0;
+    let two = 0;
+    let three = 0;
+    let four = 0;
+    let five = 0;
+    let six = 0;
+    let seven = 0;
+    let eight = 0;
+    let nine = 0;
 
    // 2色セット確認
    if (color[0] === color[1] && color[1] !== color[2]) {
@@ -99,7 +99,7 @@ function scoreCalculation(hand, winPoint) {
         }
     }
     if (color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -127,8 +127,8 @@ function scoreCalculation(hand, winPoint) {
         }
     }
     if (color[4] !== color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -159,8 +159,8 @@ function scoreCalculation(hand, winPoint) {
     }
     if (color[3] !== color[4] 
         && color[4] === color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -194,8 +194,8 @@ function scoreCalculation(hand, winPoint) {
     if (color[2] !== color[3] 
         && color[3] === color[4] 
         && color[4] === color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -232,8 +232,8 @@ function scoreCalculation(hand, winPoint) {
         && color[2] === color[3] 
         && color[3] === color[4] 
         && color[4] === color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -243,7 +243,7 @@ function scoreCalculation(hand, winPoint) {
     winPoint = 0;
 
     // 1-1-1-1-1-1-1-1-1-1-1-1色セット確認
-    var check = true;
+    let check = true;
     for (let i = 0; i < 10; ++i) {
         if (color[i] === color[i + 1]) {
             check = false;
