@@ -100,7 +100,7 @@ function doReach(hand, canWinTile) {
         }
     }
     if (color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -128,8 +128,8 @@ function doReach(hand, canWinTile) {
         }
     }
     if (color[4] !== color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -160,8 +160,8 @@ function doReach(hand, canWinTile) {
     }
     if (color[3] !== color[4] 
         && color[4] === color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -195,8 +195,8 @@ function doReach(hand, canWinTile) {
     if (color[2] !== color[3] 
         && color[3] === color[4] 
         && color[4] === color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -233,8 +233,8 @@ function doReach(hand, canWinTile) {
         && color[2] === color[3] 
         && color[3] === color[4] 
         && color[4] === color[5] 
-        && color[5] !== color[6] 
-        && color[6] !== color[7] 
+        && color[5] === color[6] 
+        && color[6] === color[7] 
         && color[7] === color[8] 
         && color[8] === color[9] 
         && color[9] === color[10]) {
@@ -398,7 +398,7 @@ function doReach(hand, canWinTile) {
         if (color[2] !== color[3] 
             && color[3] === color[4] 
             && color[4] === color[5] 
-            && color[5] !== color[6] 
+            && color[5] === color[6] 
             && color[6] === color[7] 
             && color[7] === color[8] 
             && color[8] === color[9] 
