@@ -232,7 +232,11 @@ const loop = () => {
                 }
 
             } else if (turn == 4) {
-                trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+                if (parent === 0 && trashPoint0 === 0) {
+                    otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+                } else {
+                    trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+                }
             }
         }
         // 画面の任意の位置をクリックして描画を進める．
