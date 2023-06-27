@@ -1,9 +1,9 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var state = false;          // 何に使うの？
-var deckHead;
-var parent = -1;
-var turn;
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let state = false;          // 何に使うの？
+let deckHead;
+let parent = -1;
+let turn;
 
 canvas.width = 850;
 canvas.height = 600;
@@ -11,33 +11,33 @@ canvas.height = 600;
 const centerX = canvas.width / 2;
 const centerY = canvas.height / 2;
 
-var hand = new Array(12); // 手牌
-var deck = new Array(144); // 牌山
-var trash0 = new Array(30); // 捨牌1~4
-var trash1 = new Array(30);
-var trash2 = new Array(30);
-var trash3 = new Array(30);
-var trashPoint0; // 捨牌の位置
-var trashPoint1;
-var trashPoint2;
-var trashPoint3;
-var point = new Array(4); // 点数
-var discardTile = -1; // 切り牌
-var canClaimTiles = new Array(25); // ポンできる牌
-var canWinTile; // 上がれる牌
-var isPossibleClaim ; // ポンできるならtrue
-var isClaim; // ポンするならtrue
-var duringClaim; // ポン処理中ならtrue
-var winPoint; // 役の分の点数
-var doraPoint; // ドラの分の点数
-var isReach; // リーチしているならtrue
-var canSelfDraw; // 牌山が残っているならtrue
-var isPaused; // 描画を停止中ならtrue
-var isSelfDraw; // ツモ上がりならtrue
-var isRon; // ロン上がりならtrue
-var deadIn; // ロンされた席
-var claimCount; // 鳴いた回数
-var canEnd; // 終局を表示できるならtrue
+let hand = new Array(12); // 手牌
+let deck = new Array(144); // 牌山
+let trash0 = new Array(30); // 捨牌1~4
+let trash1 = new Array(30);
+let trash2 = new Array(30);
+let trash3 = new Array(30);
+let trashPoint0; // 捨牌の位置
+let trashPoint1;
+let trashPoint2;
+let trashPoint3;
+let point = new Array(4); // 点数
+let discardTile = -1; // 切り牌
+let canClaimTiles = new Array(25); // ポンできる牌
+let canWinTile; // 上がれる牌
+let isPossibleClaim ; // ポンできるならtrue
+let isClaim; // ポンするならtrue
+let duringClaim; // ポン処理中ならtrue
+let winPoint; // 役の分の点数
+let doraPoint; // ドラの分の点数
+let isReach; // リーチしているならtrue
+let canSelfDraw; // 牌山が残っているならtrue
+let isPaused; // 描画を停止中ならtrue
+let isSelfDraw; // ツモ上がりならtrue
+let isRon; // ロン上がりならtrue
+let deadIn; // ロンされた席
+let claimCount; // 鳴いた回数
+let canEnd; // 終局を表示できるならtrue
 
 for (let i = 0; i < 4; ++i) {
     point[i] = 3000;
@@ -123,6 +123,7 @@ const loop = () => {
                 point[i] = 3000;
             }
             parent = 0;
+            canEnd = false;
         }
         canEnd = true;
         isPaused = true;
@@ -266,10 +267,10 @@ function drawGame() {
 
 function drawReach(isReach) {
     if (isReach) {
-        var x = 405;
-        var y = 310;
-        var width = 40;
-        var height = 6;
+        const x = 405;
+        const y = 310;
+        const width = 40;
+        const height = 6;
 
         ctx.fillStyle = 'white';
         ctx.fillRect(x, y, width, height);
@@ -287,15 +288,26 @@ function drawEndGame(point) {
     ctx.fillStyle = 'white';
     ctx.fillRect(365, 225, 120, 60);
 
-    var textX = centerX;
-    var textY = centerY - 30;
+    let textX = centerX;
+    let textY = centerY - 30;
     ctx.font = '50px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
 
     ctx.fillText('終局', textX, textY);
 
-    var judge = true;
+    ctx.fillStyle = 'white';
+    ctx.fillRect(315, 375, 220, 60);
+
+    textX = centerX;
+    textY = centerY + 120;
+    ctx.font = '30px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'black';
+
+    ctx.fillText(point[0] + 'points', textX, textY);
+
+    let judge = true;
     for (let i = 1; i <= 3; ++i) {
         if (point[0] < point[i]) {
             judge = false;
@@ -306,8 +318,8 @@ function drawEndGame(point) {
         ctx.fillStyle = 'white';
         ctx.fillRect(315, 325, 220, 60);
 
-        var textX = centerX;
-        var textY = centerY + 70;
+        textX = centerX;
+        textY = centerY + 70;
         ctx.font = '50px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'black';
@@ -317,8 +329,8 @@ function drawEndGame(point) {
         ctx.fillStyle = 'white';
         ctx.fillRect(315, 325, 220, 60);
 
-        var textX = centerX;
-        var textY = centerY + 70;
+        textX = centerX;
+        textY = centerY + 70;
         ctx.font = '50px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'black';
@@ -326,16 +338,6 @@ function drawEndGame(point) {
         ctx.fillText('YOU LOSE', textX, textY);
     }
 
-    ctx.fillStyle = 'white';
-    ctx.fillRect(315, 375, 220, 60);
-
-    var textX = centerX;
-    var textY = centerY + 120;
-    ctx.font = '30px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = 'black';
-
-    ctx.fillText(point[0] + 'points', textX, textY);
 }
 
 // 流れたときの描画
@@ -343,8 +345,8 @@ function drawDrawnGame() {
     ctx.fillStyle = 'white';
     ctx.fillRect(365, 225, 120, 60);
 
-    var textX = centerX;
-    var textY = centerY - 30;
+    const textX = centerX;
+    const textY = centerY - 30;
     ctx.font = '50px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
@@ -357,8 +359,8 @@ function drawWin(winPoint) {
     ctx.fillStyle = 'white';
     ctx.fillRect(280, 225, 300, 60);
 
-    var textX = centerX;
-    var textY = centerY - 30;
+    const textX = centerX;
+    const textY = centerY - 30;
     ctx.font = '50px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
@@ -370,11 +372,11 @@ function drawWin(winPoint) {
 // 手牌を描画
 function drawHandTiles(hand) {
     // 見せてない牌の描画
-    var startX = 70;
-    var startY = 500;
-    var tileWidth = 40;
-    var tileHeight = 60;
-    var spacing = 10;
+    let startX = 70;
+    let startY = 500;
+    let tileWidth = 40;
+    let tileHeight = 60;
+    let spacing = 10;
 
     for (let i = 0; i < 11; ++i) {
         const x = startX + (tileWidth + spacing) * i;
@@ -396,10 +398,10 @@ function drawHandTiles(hand) {
     tileHeight = 45;
     spacing = 5;
 
-    var y = startY;
+    let y = startY;
 
     for (let i = 0; i < 3; ++i) {
-        var x = startX;
+        let x = startX;
         for (let j = 0; j <= 11; ++j) {
 
             ctx.fillStyle = tileColor(hand, j);
@@ -424,33 +426,33 @@ function drawHandTiles(hand) {
 
 // 点数を描画
 function drawPoints(point) {
-    var textX0 = centerX;
-    var textY0 = centerY;
+    const textX0 = centerX;
+    const textY0 = centerY;
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
 
     ctx.fillText(point[0], textX0, textY0);
 
-    var textX1 = centerX - 50;
-    var textY1 = centerY - 50;
+    const textX1 = centerX - 50;
+    const textY1 = centerY - 50;
     ctx.fillText(point[1], textX1, textY1);
 
-    var textX2 = centerX;
-    var textY2 = centerY - 100;
+    const textX2 = centerX;
+    const textY2 = centerY - 100;
     ctx.fillText(point[2], textX2, textY2);
 
-    var textX3 = centerX + 50;
-    var textY3 = centerY - 50;
+    const textX3 = centerX + 50;
+    const textY3 = centerY - 50;
     ctx.fillText(point[3], textX3, textY3);
 }
 
 // ツモ牌を描画
 function drawSelf(tile, label) {
-    var startX = 660;
-    var startY = 500;
-    var tileWidth = 40;
-    var tileHeight = 60;
+    const startX = 660;
+    const startY = 500;
+    const tileWidth = 40;
+    const tileHeight = 60;
 
     const x = startX;
     const y = startY;
@@ -463,10 +465,10 @@ function drawSelf(tile, label) {
 
 // 捨牌を描画
 function drawTrash(trash0, trash1, trash2, trash3) {
-    var startX = centerX - 100;
-    var startY = centerY + 30;
-    var tileWidth = 20;
-    var tileHeight = 30;
+    let startX = centerX - 100;
+    let startY = centerY + 30;
+    let tileWidth = 20;
+    let tileHeight = 30;
     const spacing = 5;
 
     for (let i = 0; i < trash0.length; ++i) {
@@ -492,9 +494,9 @@ function drawTrash(trash0, trash1, trash2, trash3) {
     }
 
     startX = centerX - 160;
-    var startY = centerY - 150;
-    var tileWidth = 30;
-    var tileHeight = 20;
+    startY = centerY - 150;
+    tileWidth = 30;
+    tileHeight = 20;
 
     for (let i = 0; i < trash1.length; ++i) {
         if (trash1[i] === -1) {
@@ -520,10 +522,10 @@ function drawTrash(trash0, trash1, trash2, trash3) {
         drawDora(trash1, 5, x, y, tileWidth, tileHeight, i);
     }
 
-    var startX = centerX + 80;
-    var startY = centerY - 170;
-    var tileWidth = 20;
-    var tileHeight = 30;
+    startX = centerX + 80;
+    startY = centerY - 170;
+    tileWidth = 20;
+    tileHeight = 30;
 
     for (let i = 0; i < trash2.length; ++i) {
         if (trash2[i] === -1) break;
@@ -548,9 +550,9 @@ function drawTrash(trash0, trash1, trash2, trash3) {
     }
 
     startX = centerX + 120;
-    var startY = centerY + 30;
-    var tileWidth = 30;
-    var tileHeight = 20;
+    startY = centerY + 30;
+    tileWidth = 30;
+    tileHeight = 20;
 
     for (let i = 0; i < trash3.length; ++i) {
         if (trash3[i] === -1){
@@ -590,7 +592,7 @@ function drawDora(tile, radius, x, y, tileWidth, tileHeight, i) {
 
 // 牌の色の抽出
 function tileColor(tile, point) {
-    var colorString = '';
+    let colorString = '';
 
     if (Math.floor((tile[point] % 1000) / 10) === 0) {
         colorString = 'yellow';
@@ -684,13 +686,13 @@ canvas.addEventListener('click', unPause);
 
 // ユーザがクリックした牌を取得
 function clickEvent(event) {
-    var mouseX = event.clientX - canvas.offsetLeft;
-    var mouseY = event.clientY - canvas.offsetTop;
+    const mouseX = event.clientX - canvas.offsetLeft;
+    const mouseY = event.clientY - canvas.offsetTop;
 
-    var startX = 70;
-    var startY = 500;
-    var tileWidth = 40;
-    var tileHeight = 60;
+    const startX = 70;
+    const startY = 500;
+    const tileWidth = 40;
+    const tileHeight = 60;
     const spacing = 10;
 
     for (let i = 0; i < 11; ++i) {

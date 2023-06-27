@@ -1,6 +1,6 @@
 function doReach(hand, canWinTile) {
-    var tmpHand = new Array(11);
-    var color = new Array(11);
+    const tmpHand = new Array(11);
+    const color = new Array(11);
 
     for (let i = 0; i < 11; ++i) {
         tmpHand[i] = hand[i];
@@ -12,16 +12,16 @@ function doReach(hand, canWinTile) {
         color[i] = Math.floor((tmpHand[i] % 1000) / 10);
     }
 
-   var two = 0;
-   var three = 0;
-   var four = 0;
-   var five = 0;
-   var six = 0;
-   var seven = 0;
-   var eight = 0;
-   var nine = 0;
+    let two = 0;
+    let three = 0;
+    let four = 0;
+    let five = 0;
+    let six = 0;
+    let seven = 0;
+    let eight = 0;
+    let nine = 0;
 
-   // 2色セット確認
+    // 2色セット確認
     if (color[0] === color[1] 
         && color[1] !== color[2]) {
         two += 1;
@@ -242,7 +242,7 @@ function doReach(hand, canWinTile) {
     }
 
     // 1-1-1-1-1-1-1-1-1-1-1-1色セット確認
-    var check = true;
+    let check = true;
     for (let i = 0; i < 10; ++i) {
         if (color[i] === color[i + 1]) {
             check = false;
