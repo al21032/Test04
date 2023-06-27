@@ -11,7 +11,6 @@ Date            :2023.6.20
 Function        :ユーザの切り番で，牌を打牌する．
 */
 
-
 function beforeReachDiscard(discardTile, trash0, hand) {
     trash0[trashPoint0] = hand[discardTile];
     trashPoint0 += 1;
