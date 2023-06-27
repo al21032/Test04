@@ -11,9 +11,12 @@ Date         :2023.6.3
 Function     :牌が切られた後に，切られた牌がポン可能なら，ポンするかを確認する.
 */
 
-function CheckClaim (isClaim) {
+function checkClaim (isClaim) {
 	// 切られた牌が，ポンできるフラグが立っているかの確認.
-	if (confirm('ポンしますか?')) isClaim = true; // ポンするならtrueを格納.
-	else isClaim = false;
+	if (confirm('ポンしますか?')) {
+		isClaim = true; // ポンするならtrueを格納.
+	} else {
+		isClaim = false;
+	}
 	return isClaim;
 }
