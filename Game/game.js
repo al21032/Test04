@@ -32,7 +32,7 @@ var winPoint; // 役の分の点数
 var doraPoint; // ドラの分の点数
 var isReach; // リーチしているならtrue
 var canSelfDraw; // 牌山が残っているならtrue
-var isPaused; // 描画を停止中ならtrue
+//var isPaused; // 描画を停止中ならtrue
 var isSelfDraw; // ツモ上がりならtrue
 var isRon; // ロン上がりならtrue
 var deadIn; // ロンされた席
@@ -61,12 +61,15 @@ const init = () => {
     doraPoint = 0;
     isReach = false;
     canSelfDraw = true;
-    isPaused = false;
+//    isPaused = false;
     isSelfDraw = false;
     isRon = false;
     deadIn = -1;
     claimCount = 0;
     canEnd = false;
+
+    // タイマー処理の初期化
+    clearTimeout();
 
     // 牌山を初期化
     for (let i = 0; i < 144; ++i) {
@@ -113,9 +116,10 @@ const pauseDrawing = (duration) => {
 // 繰り返し処理
 const loop = () => {
 
-    if (isPaused) {
-        setTimeout(loop, 100);
-    }else if (parent === 4) { // 親が1周したか．
+/*    if (isPaused) {
+        setTimeout(loop, 1000);
+    }else */
+    if (parent === 4) { // 親が1周したか．
         if (canEnd) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawEndGame(point);
@@ -125,13 +129,13 @@ const loop = () => {
             parent = 0;
         }
         canEnd = true;
-        isPaused = true;
+        // isPaused = true;
     }
     // 牌山が残っているか．
     selfDrawRequest(deckHead);
-    if (isPaused) {
-        setTimeout(loop, 100);
-    } else {
+    /*if (isPaused) {
+        setTimeout(loop, 1000);
+    } else {*/
         if (isSelfDraw) { // ツモ上がりなら
             if (hand[11] % 10 === 1) {
                 doraPoint += 15;
@@ -147,7 +151,7 @@ const loop = () => {
             for (let i = 1; i <= 3; ++i) {
                 point[i] -= winPoint / 3;
             }
-            setTimeout(loop, 1)
+            setTimeout(loop, 1000)
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
@@ -159,7 +163,7 @@ const loop = () => {
             drawWin(winPoint);
             point[0] += winPoint;
             point[deadIn] -= winPoint;
-            setTimeout(loop, 1)
+            setTimeout(loop, 1000)
             init();
         } else if (!canSelfDraw) { // 牌山が残っていないなら
             drawDrawnGame();
@@ -182,7 +186,7 @@ const loop = () => {
 
                 if (discardTile !== -1 
                     && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-                    if (isReach === false) beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+                    if (isReach === false) beforeReachDiscard(discardTile, trash0, hand);
                     else afterReachDiscard(trash0, trashPoint0, hand)
                 } else {
                     discardTile = -1;
@@ -236,11 +240,11 @@ const loop = () => {
             }
         }
         // 画面の任意の位置をクリックして描画を進める．
-        isPaused = true;
+        // isPaused = true;
 
-        setTimeout(loop, 1);
+        setTimeout(loop, 1000);
         discardTile = -1;
-    }
+    //}
 }
 
 init();
@@ -649,7 +653,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     } else if (duringClaim) {
         if (discardTile !== -1 
             && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-            beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
+            beforeReachDiscard(discardTile, trash0, hand);
             setClaim(hand, canClaimTiles, duringClaim);
             winPoint = scoreCalculation(hand, winPoint);
             turn = 1;
@@ -680,7 +684,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
 }
 
 canvas.addEventListener('click', clickEvent);
-canvas.addEventListener('click', unPause);
+//canvas.addEventListener('click', unPause);
 
 // ユーザがクリックした牌を取得
 function clickEvent(event) {
@@ -712,6 +716,7 @@ function clickEvent(event) {
 }
 
 // 描画の再開
+/*
 function unPause(event) {
     isPaused = false;
-}
+}*/
