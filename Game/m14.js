@@ -1,3 +1,17 @@
+/*
+Designer:高橋匠
+Date    :2023.6.10
+Purpose :まんじゃらシステム
+*/
+
+/*
+Function Name:doReach
+Designer     :高橋匠
+Date         :2023.6.10
+Function     :リーチするなら，上り牌を設定する．
+*/
+
+
 function doReach(hand, canWinTile) {
     const tmpHand = new Array(11);
     const color = new Array(11);
