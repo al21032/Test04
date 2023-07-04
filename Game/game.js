@@ -614,19 +614,19 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     // 再描画
     drawGame();
 
-    // ロン上がり確認
-    if (isReach) {
-        isRon = checkWinOnRon(trashA, trashPointA, canWinTile, isSelfDraw);
-        if (isRon) {
-            deadIn = turn - 1;
-            if (trashA[trashPointA] % 10 === 1) {
-                doraPoint += 15;
+    if (!additionalDiscardRequest(trashA[trashPointA], canWinTile, canClaimTiles)) {
+        // ロン上がり確認
+        if (isReach) {
+            isRon = checkWinOnRon(trashA, trashPointA, canWinTile, isSelfDraw);
+            if (isRon) {
+                deadIn = turn - 1;
+                if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
             }
-        }
-    } else { // ポン処理
-        if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
-            duringSelect = true;
-            isClaim = checkClaim(isClaim);
+        } else { // ポン処理
+            if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
+                duringSelect = true;
+                isClaim = checkClaim(isClaim);
+            }
         }
     }
 
