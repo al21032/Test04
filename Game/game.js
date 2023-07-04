@@ -192,6 +192,7 @@ const loop = () => {
                         drawGame();
                     }
                 }
+                discardTile = -1;
             } else if (turn === 1) {
                 // 相手の切り番処理
                 // 時計回りにツモ切り
