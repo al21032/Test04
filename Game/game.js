@@ -61,7 +61,7 @@ const init = () => {
     doraPoint = 0;
     isReach = false;
     canSelfDraw = true;
-//    isPaused = false;
+//   isPaused = false;
     isSelfDraw = false;
     isRon = false;
     deadIn = -1;
@@ -151,7 +151,7 @@ const loop = () => {
             for (let i = 1; i <= 3; ++i) {
                 point[i] -= winPoint / 3;
             }
-            setTimeout(loop, 1000)
+            setTimeout(loop, 1000);
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
@@ -168,7 +168,6 @@ const loop = () => {
         } else if (!canSelfDraw) { // 牌山が残っていないなら
             drawDrawnGame();
             init();
-            
         } else {
             setClaim(hand, canClaimTiles);
 
