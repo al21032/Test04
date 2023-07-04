@@ -1,6 +1,5 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-let state = false;          // 何に使うの？
 let deckHead;
 let parent = -1;
 let turn;
@@ -52,7 +51,6 @@ const init = () => {
     trashPoint1 = 0;
     trashPoint2 = 0;
     trashPoint3 = 0;
-    time = 0;
     canWinTile = -1;
     isPossibleClaim = false;
     isClaim = false;
@@ -102,19 +100,11 @@ const init = () => {
     canWinTile = -1;
 }
 
-// timeout用
-const pauseDrawing = (duration) => {
-    const startTime = Date.now();
-    while(Data.now() - starttime < duration) {
-        ;
-    }
-}
-
 // 繰り返し処理
 const loop = () => {
 
     if (isPaused) {
-        setTimeout(loop, 100);
+        ; // 何もしないで描画待機
     }else if (parent === 4) { // 親が1周したか．
         if (canEnd) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -131,7 +121,7 @@ const loop = () => {
     // 牌山が残っているか．
     selfDrawRequest(deckHead);
     if (isPaused) {
-        setTimeout(loop, 100);
+        ; // 何もしないで描画待機
     } else {
         if (isSelfDraw) { // ツモ上がりなら
             if (hand[11] % 10 === 1) {
@@ -148,7 +138,6 @@ const loop = () => {
             for (let i = 1; i <= 3; ++i) {
                 point[i] -= winPoint / 3;
             }
-            setTimeout(loop, 1)
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
@@ -160,12 +149,10 @@ const loop = () => {
             drawWin(winPoint);
             point[0] += winPoint;
             point[deadIn] -= winPoint;
-            setTimeout(loop, 1)
             init();
         } else if (!canSelfDraw) { // 牌山が残っていないなら
             drawDrawnGame();
             init();
-            
         } else {
             setClaim(hand, canClaimTiles);
 
@@ -180,17 +167,14 @@ const loop = () => {
 
                 // ツモ上がり確認
                 isSelfDraw = checkWinOnSelfDraw(hand, canWinTile, isSelfDraw);
-
                 if (discardTile !== -1 
                     && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
                     if (isReach === false) beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
                     else afterReachDiscard(trash0, trashPoint0, hand)
-                } else {
-                    discardTile = -1;
                 }
 
                 setClaim(hand, canClaimTiles);
-    
+
                 // 打牌した牌が鳴かれるか
                 discardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim)
 
@@ -208,7 +192,6 @@ const loop = () => {
                         drawGame();
                     }
                 }
-                discardTile = -1;
             } else if (turn === 1) {
                 // 相手の切り番処理
                 // 時計回りにツモ切り
@@ -233,15 +216,18 @@ const loop = () => {
                 }
 
             } else if (turn == 4) {
-                trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+                if (parent === 0 && trashPoint0 === 0) {
+                    otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+                } else {
+                    trashPoint3 = otherTurn(trash3, trashPoint3, trash0, trashPoint0);
+                }
             }
         }
         // 画面の任意の位置をクリックして描画を進める．
         isPaused = true;
-
-        setTimeout(loop, 1);
         discardTile = -1;
     }
+    requestAnimationFrame(loop);
 }
 
 init();
