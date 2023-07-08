@@ -9,7 +9,11 @@ function scoreCalculation(hand, winPoint) {
     tmpHand.sort((a, b) => a - b);
 
     for (let i = 0; i < 11; ++i) {
-        color[i] = Math.floor((tmpHand[i] % 1000) / 10);
+        if (tmpHand[i] % 10 == 1) {
+            color[i] = tmpHand[i] - 1;
+        } else {
+            color[i] = tmpHand[i];
+        }
     }
 
     color.sort((a, b) => a - b);

@@ -10,33 +10,33 @@ canvas.height = 600;
 const centerX = canvas.width / 2;
 const centerY = canvas.height / 2;
 
-var hand = new Array(12); // 手牌
-var deck = new Array(144); // 牌山
-var trash0 = new Array(30); // 捨牌1~4
-var trash1 = new Array(30);
-var trash2 = new Array(30);
-var trash3 = new Array(30);
-var trashPoint0; // 捨牌の位置
-var trashPoint1;
-var trashPoint2;
-var trashPoint3;
-var point = new Array(4); // 点数
-var discardTile = -1; / 切り牌
-var canClaimTiles = new Array(25); // ポンできる牌
-var canWinTile; // 上がれる牌
-var isPossibleClaim ; // ポンできるならtrue
-var isClaim; // ポンするならtrue
-var duringClaim; // ポン処理中ならtrue
-var winPoint; // 役の分の点数
-var doraPoint; // ドラの分の点数
-var isReach; // リーチしているならtrue
-var canSelfDraw; // 牌山が残っているならtrue
-//var isPaused; // 描画を停止中ならtrue
-var isSelfDraw; // ツモ上がりならtrue
-var isRon; // ロン上がりならtrue
-var deadIn; // ロンされた席
-var claimCount; // 鳴いた回数
-var canEnd; // 終局を表示できるならtrue
+let hand = new Array(12); // 手牌
+let deck = new Array(144); // 牌山
+let trash0 = new Array(30); // 捨牌1~4
+let trash1 = new Array(30);
+let trash2 = new Array(30);
+let trash3 = new Array(30);
+let trashPoint0; // 捨牌の位置
+let trashPoint1;
+let trashPoint2;
+let trashPoint3;
+let point = new Array(4); // 点数
+let discardTile = -1; // 切り牌
+let canClaimTiles = new Array(25); // ポンできる牌
+let canWinTile; // 上がれる牌
+let isPossibleClaim ; // ポンできるならtrue
+let isClaim; // ポンするならtrue
+let duringClaim; // ポン処理中ならtrue
+let winPoint; // 役の分の点数
+let doraPoint; // ドラの分の点数
+let isReach; // リーチしているならtrue
+let canSelfDraw; // 牌山が残っているならtrue
+let isPaused; // 描画を停止中ならtrue
+let isSelfDraw; // ツモ上がりならtrue
+let isRon; // ロン上がりならtrue
+let deadIn; // ロンされた席
+let claimCount; // 鳴いた回数
+let canEnd; // 終局を表示できるならtrue
 
 for (let i = 0; i < 4; ++i) {
     point[i] = 3000;
@@ -59,15 +59,12 @@ const init = () => {
     doraPoint = 0;
     isReach = false;
     canSelfDraw = true;
-//    isPaused = false;
+    isPaused = false;
     isSelfDraw = false;
     isRon = false;
     deadIn = -1;
     claimCount = 0;
     canEnd = false;
-
-    // タイマー処理の初期化
-    clearTimeout();
 
     // 牌山を初期化
     for (let i = 0; i < 144; ++i) {
@@ -101,20 +98,14 @@ const init = () => {
         canClaimTiles[i] = false;
     }
     canWinTile = -1;
-
-    clearTimeout(timer);
-
 }
 
 // 繰り返し処理
 const loop = () => {
 
-
-/*    if (isPaused) {
-        setTimeout(loop, 1000);
-    }else */
-    if (parent === 4) { // 親が1周したか．
-
+    if (isPaused) {
+        ; // 何もしないで描画待機
+    }else if (parent === 4) { // 親が1周したか．
         if (canEnd) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawEndGame(point);
@@ -125,15 +116,13 @@ const loop = () => {
             canEnd = false;
         }
         canEnd = true;
-        // isPaused = true;
+        isPaused = true;
     }
     // 牌山が残っているか．
     selfDrawRequest(deckHead);
-
-    /*if (isPaused) {
-        setTimeout(loop, 1000);
-    } else {*/
-
+    if (isPaused) {
+        ; // 何もしないで描画待機
+    } else {
         if (isSelfDraw) { // ツモ上がりなら
             if (hand[11] % 10 === 1) {
                 doraPoint += 15;
@@ -149,9 +138,6 @@ const loop = () => {
             for (let i = 1; i <= 3; ++i) {
                 point[i] -= winPoint / 3;
             }
-
-            setTimeout(loop, 1000)
-
             init();
         } else if (isRon) { // ロン上がりなら
             for (let i = 0; i < 11; ++i) {
@@ -163,9 +149,6 @@ const loop = () => {
             drawWin(winPoint);
             point[0] += winPoint;
             point[deadIn] -= winPoint;
-
-            setTimeout(loop, 1000)
-
             init();
         } else if (!canSelfDraw) { // 牌山が残っていないなら
             drawDrawnGame();
@@ -184,17 +167,14 @@ const loop = () => {
 
                 // ツモ上がり確認
                 isSelfDraw = checkWinOnSelfDraw(hand, canWinTile, isSelfDraw);
-
                 if (discardTile !== -1 
                     && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-                    if (isReach === false) beforeReachDiscard(discardTile, trash0, hand);
+                    if (isReach === false) beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
                     else afterReachDiscard(trash0, trashPoint0, hand)
-                } else {
-                    discardTile = -1;
                 }
 
                 setClaim(hand, canClaimTiles);
-    
+
                 // 打牌した牌が鳴かれるか
                 discardTileOrder (discardTile, canClaimTiles, canWinTile, isPossibleClaim)
 
@@ -245,13 +225,10 @@ const loop = () => {
             }
         }
         // 画面の任意の位置をクリックして描画を進める．
-
-        // isPaused = true;
-
-        setTimeout(loop, 1000);
-
+        isPaused = true;
         discardTile = -1;
-    //}
+    }
+    requestAnimationFrame(loop);
 }
 
 init();
@@ -637,19 +614,19 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     // 再描画
     drawGame();
 
-    // ロン上がり確認
-    if (isReach) {
-        isRon = checkWinOnRon(trashA, trashPointA, canWinTile, isSelfDraw);
-        if (isRon) {
-            deadIn = turn - 1;
-            if (trashA[trashPointA] % 10 === 1) {
-                doraPoint += 15;
+    if (!additionalDiscardRequest(trashA[trashPointA], canWinTile, canClaimTiles)) {
+        // ロン上がり確認
+        if (isReach) {
+            isRon = checkWinOnRon(trashA, trashPointA, canWinTile, isSelfDraw);
+            if (isRon) {
+                deadIn = turn - 1;
+                if (trashA[trashPointA] % 10 === 1) doraPoint += 15;
             }
-        }
-    } else { // ポン処理
-        if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
-            duringSelect = true;
-            isClaim = checkClaim(isClaim);
+        } else { // ポン処理
+            if (canClaimTiles[Math.floor((trashA[trashPointA] % 1000) / 10)]) {
+                duringSelect = true;
+                isClaim = checkClaim(isClaim);
+            }
         }
     }
 
@@ -661,7 +638,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
     } else if (duringClaim) {
         if (discardTile !== -1 
             && (Math.floor(hand[discardTile] / 1000) < 1 || Math.floor(hand[discardTile] / 1000) > 3)) {
-            beforeReachDiscard(discardTile, trash0, hand);
+            beforeReachDiscard(discardTile, trash0, trashPoint0, hand);
             setClaim(hand, canClaimTiles, duringClaim);
             winPoint = scoreCalculation(hand, winPoint);
             turn = 1;
@@ -692,7 +669,7 @@ function otherTurn(trashA, trashPointA, trashB, trashPointB) {
 }
 
 canvas.addEventListener('click', clickEvent);
-//canvas.addEventListener('click', unPause);
+canvas.addEventListener('click', unPause);
 
 // ユーザがクリックした牌を取得
 function clickEvent(event) {
@@ -724,7 +701,6 @@ function clickEvent(event) {
 }
 
 // 描画の再開
-/*
 function unPause(event) {
     isPaused = false;
-}*/
+}
