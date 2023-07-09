@@ -5,7 +5,7 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:DiscardTileOrder
+Function Name:discardTileOrder
 Designer     :高橋匠
 Date         :2023.6.3
 Function     :切られた牌が，ポンやロンの対象になっているかを調べる.

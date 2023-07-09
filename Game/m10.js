@@ -5,10 +5,10 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:SetClaim
+Function Name:setClaim
 Designer     :高橋匠
 Date         :2023.6.3
-Function     :手牌の更新後に，ポンが可能な牌のフラグをcanClaimTilesで立てる.
+Function     :手牌の更新後に，ポンが可能な牌のフラグを立てる.
 */
 
 function setClaim(hand, canClaimTiles) {

@@ -5,7 +5,7 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:DoClaim
+Function Name:doClaim
 Designer     :高橋匠
 Date         :2023.6.5
 Function     :ポンをするなら，牌を3枚見せてポンをする.

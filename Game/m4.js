@@ -5,13 +5,12 @@ Purpose     :まんじゃらシステム
 */
 
 /*
-Function Name   :TransitionHelp
+Function Name   :drawHelp
 Designer        :小泉 遼太
 Date            :2023.6.12
 Function        :ヘルプボタンを押したらヘルプ画面に遷移する
 */
 
-// ヘルプ画面へ遷移するボタンを生成
 function drawHelp() {
     var buttonX = 100;
     var buttonY = 50;

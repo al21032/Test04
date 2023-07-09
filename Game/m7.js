@@ -1,3 +1,16 @@
+/*
+Designer    :屋 雄弥
+Date        :2023.6.13
+Purpose     :まんじゃらシステム
+*/
+
+/*
+Function Name   :scoreCalculation
+Designer        :屋 雄弥
+Date            :2023.6.13
+Function        :手牌の点数計算を行い，計算結果を返す
+*/
+
 function scoreCalculation(hand, winPoint) {
     const tmpHand = new Array(11);
     const color = new Array(11);

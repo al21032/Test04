@@ -5,7 +5,7 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:TransitionHelp
+Function Name:abortClick
 Designer     :小泉遼太
 Date         :2023.6.13
 Function     :ゲームを中止する(ホーム画面に戻す)

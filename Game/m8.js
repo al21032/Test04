@@ -5,10 +5,10 @@ Purpose :まんじゃらシステム
 */
 
 /*
-Function Name:SelfDrawRequest
+Function Name:selfDrawRequest
 Designer     :高橋匠
 Date         :2023.6.10
-Function     :牌山が残っていれば，canSelfDrawをtrueにする．
+Function     :牌山が残っていれば，牌山存在フラグをtrueにする．
 */
 
 function selfDrawRequest(deckHead) {
