@@ -1,3 +1,16 @@
+/*
+Designer    :小泉遼太
+Date        :2023.6.12
+Purpose     :まんじゃらシステム
+*/
+
+/*
+Function Name   :draw
+Designer        :小泉 遼太
+Date            :2023.6.12
+Function        :役の組み合わせを見る
+*/
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 

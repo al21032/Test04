@@ -1,3 +1,16 @@
+/*
+Designer    :高橋 匠
+Date        :2023.6.12
+Purpose     :まんじゃらシステム
+*/
+
+/*
+Function Name   :draw
+Designer        :高橋 匠
+Date            :2023.6.12
+Function        :ゲームを進行する
+*/
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let deckHead;
