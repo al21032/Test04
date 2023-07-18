@@ -7,6 +7,10 @@ Purpose     :まんじゃらシステム
 /*
 Function Name   :draw
 Designer        :高橋 匠
+                :小泉 遼太
+                :屋 雄弥
+                :森本 直寛
+                :深井 悠稀
 Date            :2023.6.12
 Function        :ゲームを進行する
 */
